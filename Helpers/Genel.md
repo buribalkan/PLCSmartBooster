@@ -1,8 +1,7 @@
+# 🧩 Script Helpers (`H.`)
 
-# Custom Script Helpers – API Fonksiyonları
-
-## Genel Bilgiler / Özellikler
-
+`ScriptHelpers` provides a compact set of helper functions accessible through the `H.` prefix inside scripts.  
+They simplify value conversion, text matching, timing, and diagnostic output.
 
 
 ---
@@ -13,6 +12,15 @@
 `İstatistiksel analizlerde — örneğin ortalama, standart sapma, trend tespiti, EMA gibi indikatörler — tek bir değer yeterli değildir. Sistem, geçmişteki belirli sayıda örneğe ihtiyaç duyar.`
 
 **`H.LastN(tag, n)`** tam olarak bu pencereyi sağlar. Programın üzerinde çalıştığı tüm istatistiksel ve analitik süreçlerin temel taşıdır. Çünkü sistemin karar alabilmesi için yalnızca tek bir ölçüme değil, belirli bir zaman aralığındaki verilerin tamamına ihtiyacı vardır.
+
+## 🔹 Retrieve Last Sample Values
+
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.Last(tag)` | Returns the last recorded string value for a given tag. | `var s = H.Last("Temperature");` |
+| `H.LastDouble(tag)` | Returns the last recorded numeric value as `double?`. | `if (H.LastDouble("Voltage") > 5.0)` |
+| `H.LastBool(tag)` | Returns the last recorded boolean value as `bool?`. | `if (H.LastBool("IsActive") == true)` |
+
 
 > ### 📘 Makine Öğrenimi Veri Hattı İçin Temel Altyapı
 > Gerçek zamanlı PLC verisinin **sliding window** yapısıyla işlenmesi,
@@ -195,6 +203,13 @@ double std = Math.Sqrt(sumSq / values.Length);
 # 2. Log işlemleri için Durum ve Sebep Fonksiyonları
 
 > Reason, Hit ve Fail fonksiyonları; script içinde belirlenen kuralların, koşulların veya tetikleyicilerin neden gerçekleştiğini kullanıcıya bildirmek amacıyla tasarlanmış temel log fonksiyonlarıdır. Tanımlanan kuralların (sıcaklık 30 dereceyi geçiyor mu? Geçerse bildir) gerçekleşme durumunda kullanıcıya log oluşturarak bilgi verilmesi sağlanır. Üç fonksiyonda benzer şekilde kullanılır. H.Hit, Rule Hit (Tanımlanan durum gerçekleşti) mantığına uygun olduğu için kullanılması önerilen fonksiyondur.
+## 🔹 Reason & Control Flow
+
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.Reason("text")` | Stores a human-readable reason string (usually for later access). | `H.Reason("Temperature too high")` |
+| `H.Hit("text")` | Sets a reason and returns `true`. Shortcut for `return H.Hit("...")`. | `return H.Hit("Valid temperature range")` |
+| `H.Fail("text")` | Sets a reason and returns `false`. | `return H.Fail("Sensor not found")` |
 
 
 ```csharp
@@ -269,6 +284,13 @@ if (volume < 1000)
 
 # 3. Konsol / Log Fonksiyonları
 
+## 🔹 Console Logging
+
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.Console(msg)` | Writes an info-level message to the script console. | `H.Console("Starting check...")` |
+| `H.ConsoleWarn(msg)` | Writes a warning message. | `H.ConsoleWarn("Low battery")` |
+| `H.ConsoleError(msg)` | Writes an error message. | `H.ConsoleError("Device offline")` |
 ```csharp
 public void Console(object? msg)
 public void ConsoleWarn(object? msg)
@@ -350,10 +372,28 @@ public decimal? Decimal(object? s)
 ### TimeSpan dönüşümü
 ```csharp
 public TimeSpan? TimeSpan(object? s)
+
+| Format | Meaning | Example |
+|--------|----------|----------|
+| `"1h 30m"` | 1 hour 30 minutes | `H.TimeSpan("1h 30m")` |
+| `"1500ms"` | milliseconds | `H.TimeSpan("1500ms")` |
+| `"PT2H10M"` | ISO format | `H.TimeSpan("PT2H10M")` |
+| `"00:05:00"` | hh:mm:ss | `H.TimeSpan("00:05:00")` |
+| `2500` | milliseconds | `H.TimeSpan(2500)` |
+
 ```
 
 ---
 # 6. Sayısal Yardımcılar
+
+## 🔹 Math Helpers
+
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.Clamp(v, min, max)` | Restrains a value within a range. | `H.Clamp(15, 0, 10)` → `10` |
+| `H.Diff(a, b)` | Difference `a - b` (returns `null` if missing). | `H.Diff(10, 3)` → `7` |
+| `H.IsBetween(v, min, max)` | Checks if a value is within the range. | `H.IsBetween(5, 0, 10)` → `true` |
+| `H.Abs(v)` | Absolute value. | `H.Abs(-3)` → `3` |
 
 ## Clamp
 ```csharp
