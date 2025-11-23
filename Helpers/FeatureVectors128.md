@@ -1,6 +1,388 @@
-# 🧩 fv[30] — clippedStd (Kırpılmış Standart Sapma)
+# FEATURE VECTORS 128
+___
+> ## 📌 fv[0] — mean (Ortalama) 
 
-## Tanım
+### Tanım: 
+
+> Sinyalin tüm örneklerinin aritmetik ortalaması. 
+
+### PLC Uygulamaları: 
+
+ - ✔ **Sinyalin genel seviyesini gösterir.** 
+
+ - ✔ **Yüksek mean → proses değeri yüksek bölgede çalışıyor.**
+
+ - ✔ **PID çıkışında mean kayması, sistemde sürekli bir ofset olduğuna işaret edebilir.**
+
+ 
+
+> ## 📌 fv[1] — std (Standart sapma) 
+
+### Tanım: 
+>Sinyalin ne kadar değişken olduğunu ölçer. 
+### 💊 Proses Yorumu: 
+
+- ✔ **Yüksek std → sinyal oynak, sistem stabil değil.**
+
+- ✔ **Düşük std → kararlı çalışma.**
+
+- ✔ **PID aşırı agresifse std yükselir.**
+
+ 
+
+> ## 📌 fv[2] — min (Minimum değer) 
+
+### Tanım: 
+>Sinyalin aldığı en düşük değer. 
+### 💊 Proses Yorumu: 
+
+- ✔ **Alt limitlere vurup vurmadığını gösterir.** 
+
+- ✔ **Sensör arızalarında beklenmedik çökme burada yakalanır.** 
+
+ 
+
+> ## 📌 fv[3] — max (Maksimum değer) 
+
+### Tanım: 
+> Sinyalin aldığı en yüksek değer. 
+### 💊 Proses Yorumu: 
+
+- ✔ **Üst limitlere, saturasyona çıkıp çıkmadığını gösterir.** 
+
+- ✔ **Peak değerler kontrol kararlılığı için önemli.** 
+
+ 
+
+> ## 📌 fv[4] — range (max - min) 
+
+### Tanım: 
+> Sinyalin toplam yayılımı. 
+### 💊 Proses Yorumu: 
+
+- ✔ **Sinyal ne kadar geniş aralıkta oynuyor?** 
+
+- ✔ **Çok büyük range → sistemde büyük salınımlar olabilir.** 
+
+ 
+
+> ## 📌 fv[5] — median (Medyan) 
+
+### Tanım: 
+> Verilerin ortadaki değeri. 
+### 💊 Proses Yorumu:
+
+- ✔ **Gürültüden etkilenmeyen merkez noktası.** 
+
+- ✔ **mean kayıyorsa, median–mean farkı sistemde asimetri/gürültü gösterebilir.** 
+
+ 
+
+> ## 📌 fv[6] — p10 (10. yüzdelik) 
+
+### Tanım: 
+> Verilerin alt %10’luk kısmının sınırı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sinyalin alt uç davranışını ölçer.**
+
+- ✔ **Proses genelde alt değerlerde takılıyorsa p10 belirgin şekilde düşer.** 
+
+ 
+
+> ## 📌 fv[7] — p25 (25. yüzdelik / Q1) 
+
+### Tanım: 
+> Verilerin alt çeyrek sınırı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sinyalin daha düşük çalışma bölgesi hakkında stabil bilgi verir.** 
+
+- ✔ **Gürültü azsa p25 ile median arası mesafe küçüktür.** 
+
+ 
+
+> ## 📌 fv[8] — p75 (75. yüzdelik / Q3) 
+
+### Tanım:
+> Verilerin üst çeyrek sınırı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Üst çalışma aralığını temsil eder.** 
+
+- ✔ **p75 ile p25 farkı, yani IQR, değişkenliği gösterir.** 
+
+ 
+
+> ## 📌 fv[9] — p90 (90. yüzdelik) 
+
+### Tanım: 
+> Verilerin üst %10’luk kısmının başlangıcı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Peak’e yakın davranışlar hakkında hızlı fikir verir.** 
+
+- ✔ **Sistem aşırı yükleniyorsa p90 belirgin şekilde yukarı çıkar.** 
+
+ 
+
+> ## 📌 fv[10] — mad (Median Absolute Deviation) 
+
+### Tanım: 
+> Medyana göre mutlak sapmaların medyanı. Gürültüye en dayanıklı yayılım ölçütü. 
+### 💊 Proses Yorumu: 
+
+- ✔ **Sensör gürültüsü veya küçük titreşimler için hassastır.** 
+
+- ✔ **PID jitter’ı varsa mad yükselir.** 
+
+- ✔ **std’ye göre anormal durumlarda daha güvenilir.** 
+
+ 
+
+> ## 📌 fv[11] — iqr (Interquartile Range, p75 - p25) 
+
+### Tanım: 
+> Sinyalin orta %50’lik bölümünün genişliği. 
+### 💊 Proses Yorumu: 
+
+- ✔ **Gürültü ve osilasyon seviyesinin iyi bir göstergesi.** 
+
+- ✔ **iqr küçük → sinyal sıkışık ve stabil.** 
+
+- ✔ **iqr büyük → kontrol döngüsü fazla oynak.** 
+
+ 
+
+> ## 📌 fv[12] — rms (Root Mean Square) 
+
+### Tanım: 
+> Sinyalin karelerinin ortalamasının karekökü. 
+### 💊 Proses Yorumu:
+
+- ✔ **Enerji/yoğunluk ölçüsü.** 
+
+- ✔ **Titreşim analizinde özellikle önemlidir.** 
+
+- ✔ **rms yükseliyorsa sistem daha fazla güç veya hareket üretiyor olabilir.** 
+
+ 
+
+> ## 📌 fv[13] — absMean (Mutlak ortalama) 
+
+### Tanım: 
+> Tüm değerlerin mutlaklarının ortalaması. 
+### 💊 Proses Yorumu:
+
+- ✔ **Pozitif/negatif dalgalanmaları tek tarafta toplar.** 
+
+- ✔ **AC benzeri salınımlar için anlamlıdır.** 
+
+- ✔ **absMean yüksekse sinyal sürekli hareket halinde demektir.** 
+
+ 
+
+> ## 📌 fv[14] — absStd (Mutlak değerlerin standart sapması) 
+
+### Tanım: 
+> Mutlak değerlerin değişkenliğini ölçer. 
+### 💊 Proses Yorumu:
+
+- ✔ **Hareket magnitüdünün ne kadar değişken olduğunu gösterir.** 
+
+- ✔ **absStd yüksek → düzensiz salınımlar.** 
+
+- ✔ **Özellikle titreşim ve akım analizinde önemli.** 
+
+ 
+
+> ## 📌 fv[15] — count (Örnek sayısı) 
+
+### Tanım: 
+> Sinyaldeki toplam örnek sayısı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Hesaplamaların güvenilirliği bu değerle doğru orantılıdır.** 
+
+- ✔ **Çok düşük count → özellikler sağlıklı olmayabilir.** 
+
+> ## 📌 fv[16] — skew (Çarpıklık) 
+
+### Tanım: 
+> Dağılımın sağa mı sola mı kaydığını gösterir. 
+### 💊 Proses Yorumu:
+
+- ✔ **Pozitif skew → üst değerlere doğru kuyruk var, ani yükselme eğilimleri olabilir.** 
+
+- ✔ **Negatif skew → alt değerlere doğru kayma, ani düşüşler daha baskın.** 
+
+- ✔ **Sistem dengesiz çalışıyorsa skew büyür.** 
+
+ 
+
+> ## 📌 fv[17] — kurt (Basıklık / Kurtosis) 
+
+### Tanım: 
+****Dağılımın sivriliğini ölçer; uç değerlerin yoğunluğunu gösterir. 
+### 💊 Proses Yorumu:
+
+- ✔ **Yüksek kurt → Sinyalde ani pikler, sert zıplamalar var.** 
+
+- ✔ **Düşük kurt → Daha yayvan ve stabil dağılım.** 
+
+- ✔ **Sensör spike’ları ve ani darbeler kurt ile yakalanır.** 
+
+ 
+
+> ## 📌 fv[18] — entropy (Entropi) 
+
+### Tanım: 
+> Sinyalin düzensizliğinin bilgi teorisi tabanlı ölçüsü. 
+### 💊 Proses Yorumu:
+
+- ✔ **Yüksek entropi → Sinyal çok karışık, gürültü yüksek, düzen yok.** 
+
+- ✔ **Düşük entropi → Tekrarlayan, daha düzenli davranış.** 
+
+- ✔ **Motor titreşimleri, bozuk enkoder sinyalleri entropiyi artırabilir.** 
+
+ 
+
+> ## 📌 fv[19] — logVar (Logaritmik varyans) 
+
+### Tanım: 
+> Varyansın logaritmasını alarak geniş aralıkları sıkıştırır. 
+### 💊 Proses Yorumu:
+
+- ✔ **Gürültülü sinyallerde değişkenliğin büyüklüğünü kontrollü gösterir.** 
+
+- ✔ **Çok büyük varyans artışları logVar ile daha okunabilir hâle gelir.** 
+
+ 
+
+> ## 📌 fv[20] — cv (Coefficient of Variation — Değişim Katsayısı) 
+
+### Tanım: 
+> std / mean oranı; göreceli değişkenlik. 
+### 💊 Proses Yorumu:
+
+- ✔ **cv yüksek → Ortalama düşük ama oynaklık yüksek → istikrarsız sistem.** 
+
+- ✔ **cv düşük → Ortalama seviyeye göre stabil çalışma.** 
+
+- ✔ **Proses düşük değerlerde çalışırken bile osilasyonları iyi yakalar.** 
+
+ 
+
+> ## 📌 fv[21] — posCount / n (Pozitif oran) 
+
+### Tanım: 
+> Pozitif değerlerin toplam değerlere oranı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sinyal daha çok pozitif bölgede mi çalışıyor?** 
+
+- ✔ **Akım/gerilim gibi çift yönlü sinyallerde yön baskınlığını gösterir.** 
+
+ 
+
+> ## 📌 fv[22] — negCount / n (Negatif oran) 
+
+### Tanım: 
+> Negatif değerlerin toplam değerlere oranı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sinyalin ne kadar süre negatif bölgede kaldığını ölçer.** 
+
+- ✔ **Motor geri yön davranışları, çift yönlü hareketlerde anlamlı.** 
+
+ 
+
+> ## 📌 fv[23] — zeroCount / n (Sıfır oranı) 
+
+### Tanım: 
+> Sıfır (veya sıfıra çok yakın) değerlerin oranı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sinyal çok sık 0 seviyesine geri dönüyorsa sistem atıl olabilir.** 
+
+- ✔ **ADC saturasyonu veya ölü bölge davranışları burada görünür.** 
+
+ 
+
+> ## 📌 fv[24] — maxAbs (Mutlak maksimum) 
+
+### Tanım: 
+> En büyük mutlak değer. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sinyalin gördüğü en yüksek genlik.** 
+
+- ✔ **Mekanik darbe, aşırı yük, ani akım çekişi gibi durumlarda yükselir.** 
+
+ 
+
+> ## 📌 fv[25] — meanPos (Pozitif değer ortalaması) 
+
+### Tanım: 
+> Yalnızca pozitif değerlerin ortalaması. 
+### 💊 Proses Yorumu:
+
+- ✔ **Pozitif yöndeki tipik sinyal seviyesini gösterir.** 
+
+- ✔ **Motor ileri yönde çalışırken güç/akım profilini anlamak için iyidir.** 
+
+ 
+
+> ## 📌 fv[26] — meanNeg (Negatif değer ortalaması) 
+
+### Tanım: 
+> Negatif değerlerin ortalaması. 
+### 💊 Proses Yorumu:
+
+- ✔ **Geri yöndeki çalışma seviyesini gösterir.** 
+
+- ✔ **meanPos / meanNeg karşılaştırması yön simetrisi hakkında bilgi verir.** 
+
+ 
+
+> ## 📌 fv[27] — ratioUpper (Üst sınıra yakın değer oranı) 
+
+### Tanım: 
+> Sinyalin üst limit veya eşik değerinin yakınında kalma oranı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Sistem üst kapasiteye yakın çalışıyor olabilir.** 
+
+- ✔ **Saturasyona yaklaşma davranışı izlenebilir.** 
+
+ 
+
+> ## 📌 fv[28] — ratioLower (Alt sınıra yakın değer oranı) 
+
+### Tanım: 
+> Sinyalin alt limit/alt eşik civarında kalma oranı. 
+### 💊 Proses Yorumu:
+
+- ✔ **Alt limitlere dayanma durumu varsa burada görünür.** 
+
+- ✔ **Ölü bölge, valf kapalı konum, düşük akım vb.** 
+
+ 
+
+> ## 📌 fv[29] — clippedMean (Kırpılmış ortalama) 
+
+### Tanım: 
+> Aşırı uç değerler çıkarıldıktan sonra hesaplanan ortalama. 
+### 💊 Proses Yorumu:
+
+- ✔ **Spike veya gürültülü sensörlerde daha güvenilir ortalama sağlar.** 
+
+- ✔ **Gerçek operasyon seviyesini outlier’lardan bağımsız gösterir.** 
+
+> ## 📌 fv[30] — clippedStd (Kırpılmış Standart Sapma)
+
+### Tanım
 Aşırı uç değerler (outlier) çıkarıldıktan sonra hesaplanan standart sapmadır.  
 Sistemdeki gerçek yayılımı, spike veya bozuk sensör okumalarından etkilenmeden ölçer.
 
@@ -16,705 +398,316 @@ Sistemdeki gerçek yayılımı, spike veya bozuk sensör okumalarından etkilenm
 - **PID tuning ve proses izleme için:**  
   Gürültü seviyesinin daha doğru ölçülmesini sağlar → daha sağlam kontrol parametreleri seçilebilir.
 
-
-# FEATURE VECTORS 128
-
-## 🧩 fv[0] — mean (Ortalama) 
-
-### Tanım: 
-
-> Sinyalin tüm örneklerinin aritmetik ortalaması. 
-
-### PLC Uygulamaları: 
-
- ✔ **Sinyalin genel seviyesini gösterir.** 
-
- ✔ **Yüksek mean → proses değeri yüksek bölgede çalışıyor.**
-
- ✔ **PID çıkışında mean kayması, sistemde sürekli bir ofset olduğuna işaret edebilir.**
-
- 
-
-## 🧩 fv[1] — std (Standart sapma) 
-
-### Tanım: 
->Sinyalin ne kadar değişken olduğunu ölçer. 
-### PLC Yorumu: 
-
-✔ **Yüksek std → sinyal oynak, sistem stabil değil.**
-
-✔ **Düşük std → kararlı çalışma.**
-
-✔ **PID aşırı agresifse std yükselir.**
-
- 
-
-## 🧩 fv[2] — min (Minimum değer) 
-
-### Tanım: 
->Sinyalin aldığı en düşük değer. 
-### PLC Yorumu: 
-
-✔ **Alt limitlere vurup vurmadığını gösterir. 
-
-✔ **Sensör arızalarında beklenmedik çökme burada yakalanır. 
-
- 
-
-## 🧩 fv[3] — max (Maksimum değer) 
-
-### Tanım: 
-> Sinyalin aldığı en yüksek değer. 
-### PLC Yorumu: 
-
-Üst limitlere, saturasyona çıkıp çıkmadığını gösterir. 
-
-Peak değerler kontrol kararlılığı için önemli. 
-
- 
-
-## 🧩 fv[4] — range (max - min) 
-
-### Tanım: 
-> Sinyalin toplam yayılımı. 
-### PLC Yorumu: 
-
-Sinyal ne kadar geniş aralıkta oynuyor? 
-
-Çok büyük range → sistemde büyük salınımlar olabilir. 
-
- 
-
-## 🧩 fv[5] — median (Medyan) 
-
-### Tanım: 
-> Verilerin ortadaki değeri. 
-### PLC Yorumu:
-
-Gürültüden etkilenmeyen merkez noktası. 
-
-mean kayıyorsa, median–mean farkı sistemde asimetri/gürültü gösterebilir. 
-
- 
-
-## 🧩 fv[6] — p10 (10. yüzdelik) 
-
-### Tanım: 
-> Verilerin alt %10’luk kısmının sınırı. 
-### PLC Yorumu:
-
-Sinyalin alt uç davranışını ölçer. 
-
-Proses genelde alt değerlerde takılıyorsa p10 belirgin şekilde düşer. 
-
- 
-
-## 🧩 fv[7] — p25 (25. yüzdelik / Q1) 
-
-### Tanım: 
-> Verilerin alt çeyrek sınırı. 
-### PLC Yorumu:
-
-Sinyalin daha düşük çalışma bölgesi hakkında stabil bilgi verir. 
-
-Gürültü azsa p25 ile median arası mesafe küçüktür. 
-
- 
-
-## 🧩 fv[8] — p75 (75. yüzdelik / Q3) 
-
-### Tanım:
-> Verilerin üst çeyrek sınırı. 
-### PLC Yorumu:
-
-Üst çalışma aralığını temsil eder. 
-
-p75 ile p25 farkı, yani IQR, değişkenliği gösterir. 
-
- 
-
-## 🧩 fv[9] — p90 (90. yüzdelik) 
-
-### Tanım: 
-> Verilerin üst %10’luk kısmının başlangıcı. 
-### PLC Yorumu:
-
-Peak’e yakın davranışlar hakkında hızlı fikir verir. 
-
-Sistem aşırı yükleniyorsa p90 belirgin şekilde yukarı çıkar. 
-
- 
-
-## 🧩 fv[10] — mad (Median Absolute Deviation) 
-
-### Tanım: 
-> Medyana göre mutlak sapmaların medyanı. Gürültüye en dayanıklı yayılım ölçütü. 
-### PLC Yorumu: 
-
-Sensör gürültüsü veya küçük titreşimler için hassastır. 
-
-PID jitter’ı varsa mad yükselir. 
-
-std’ye göre anormal durumlarda daha güvenilir. 
-
- 
-
-## 🧩 fv[11] — iqr (Interquartile Range, p75 - p25) 
-
-### Tanım: 
-> Sinyalin orta %50’lik bölümünün genişliği. 
-### PLC Yorumu: 
-
-Gürültü ve osilasyon seviyesinin iyi bir göstergesi. 
-
-iqr küçük → sinyal sıkışık ve stabil. 
-
-iqr büyük → kontrol döngüsü fazla oynak. 
-
- 
-
-## 🧩 fv[12] — rms (Root Mean Square) 
-
-### Tanım: 
-> Sinyalin karelerinin ortalamasının karekökü. 
-### PLC Yorumu:
-
-Enerji/yoğunluk ölçüsü. 
-
-Titreşim analizinde özellikle önemlidir. 
-
-rms yükseliyorsa sistem daha fazla güç veya hareket üretiyor olabilir. 
-
- 
-
-## 🧩 fv[13] — absMean (Mutlak ortalama) 
-
-### Tanım: 
-> Tüm değerlerin mutlaklarının ortalaması. 
-### PLC Yorumu:
-
-Pozitif/negatif dalgalanmaları tek tarafta toplar. 
-
-AC benzeri salınımlar için anlamlıdır. 
-
-absMean yüksekse sinyal sürekli hareket halinde demektir. 
-
- 
-
-## 🧩 fv[14] — absStd (Mutlak değerlerin standart sapması) 
-
-### Tanım: 
-> Mutlak değerlerin değişkenliğini ölçer. 
-### PLC Yorumu:
-
-Hareket magnitüdünün ne kadar değişken olduğunu gösterir. 
-
-absStd yüksek → düzensiz salınımlar. 
-
-Özellikle titreşim ve akım analizinde önemli. 
-
- 
-
-## 🧩 fv[15] — count (Örnek sayısı) 
-
-### Tanım: 
-> Sinyaldeki toplam örnek sayısı. 
-### PLC Yorumu:
-
-Hesaplamaların güvenilirliği bu değerle doğru orantılıdır. 
-
-Çok düşük count → özellikler sağlıklı olmayabilir. 
-
-## 🧩 fv[16] — skew (Çarpıklık) 
-
-### Tanım: 
-> Dağılımın sağa mı sola mı kaydığını gösterir. 
-### PLC Yorumu:
-
-Pozitif skew → üst değerlere doğru kuyruk var, ani yükselme eğilimleri olabilir. 
-
-Negatif skew → alt değerlere doğru kayma, ani düşüşler daha baskın. 
-
-Sistem dengesiz çalışıyorsa skew büyür. 
-
- 
-
-## 🧩 fv[17] — kurt (Basıklık / Kurtosis) 
-
-### Tanım: 
-****Dağılımın sivriliğini ölçer; uç değerlerin yoğunluğunu gösterir. 
-### PLC Yorumu:
-
-Yüksek kurt → Sinyalde ani pikler, sert zıplamalar var. 
-
-Düşük kurt → Daha yayvan ve stabil dağılım. 
-
-Sensör spike’ları ve ani darbeler kurt ile yakalanır. 
-
- 
-
-## 🧩 fv[18] — entropy (Entropi) 
-
-### Tanım: 
-> Sinyalin düzensizliğinin bilgi teorisi tabanlı ölçüsü. 
-### PLC Yorumu:
-
-Yüksek entropi → Sinyal çok karışık, gürültü yüksek, düzen yok. 
-
-Düşük entropi → Tekrarlayan, daha düzenli davranış. 
-
-Motor titreşimleri, bozuk enkoder sinyalleri entropiyi artırabilir. 
-
- 
-
-## 🧩 fv[19] — logVar (Logaritmik varyans) 
-
-### Tanım: 
-> Varyansın logaritmasını alarak geniş aralıkları sıkıştırır. 
-### PLC Yorumu:
-
-Gürültülü sinyallerde değişkenliğin büyüklüğünü kontrollü gösterir. 
-
-Çok büyük varyans artışları logVar ile daha okunabilir hâle gelir. 
-
- 
-
-## 🧩 fv[20] — cv (Coefficient of Variation — Değişim Katsayısı) 
-
-### Tanım: 
-> std / mean oranı; göreceli değişkenlik. 
-### PLC Yorumu:
-
-cv yüksek → Ortalama düşük ama oynaklık yüksek → istikrarsız sistem. 
-
-cv düşük → Ortalama seviyeye göre stabil çalışma. 
-
-Proses düşük değerlerde çalışırken bile osilasyonları iyi yakalar. 
-
- 
-
-## 🧩 fv[21] — posCount / n (Pozitif oran) 
-
-### Tanım: 
-> Pozitif değerlerin toplam değerlere oranı. 
-### PLC Yorumu:
-
-Sinyal daha çok pozitif bölgede mi çalışıyor? 
-
-Akım/gerilim gibi çift yönlü sinyallerde yön baskınlığını gösterir. 
-
- 
-
-## 🧩 fv[22] — negCount / n (Negatif oran) 
-
-### Tanım: 
-> Negatif değerlerin toplam değerlere oranı. 
-### PLC Yorumu:
-
-Sinyalin ne kadar süre negatif bölgede kaldığını ölçer. 
-
-Motor geri yön davranışları, çift yönlü hareketlerde anlamlı. 
-
- 
-
-## 🧩 fv[23] — zeroCount / n (Sıfır oranı) 
-
-### Tanım: 
-> Sıfır (veya sıfıra çok yakın) değerlerin oranı. 
-### PLC Yorumu:
-
-Sinyal çok sık 0 seviyesine geri dönüyorsa sistem atıl olabilir. 
-
-ADC saturasyonu veya ölü bölge davranışları burada görünür. 
-
- 
-
-## 🧩 fv[24] — maxAbs (Mutlak maksimum) 
-
-### Tanım: 
-> En büyük mutlak değer. 
-### PLC Yorumu:
-
-Sinyalin gördüğü en yüksek genlik. 
-
-Mekanik darbe, aşırı yük, ani akım çekişi gibi durumlarda yükselir. 
-
- 
-
-## 🧩 fv[25] — meanPos (Pozitif değer ortalaması) 
-
-### Tanım: 
-> Yalnızca pozitif değerlerin ortalaması. 
-### PLC Yorumu:
-
-Pozitif yöndeki tipik sinyal seviyesini gösterir. 
-
-Motor ileri yönde çalışırken güç/akım profilini anlamak için iyidir. 
-
- 
-
-## 🧩 fv[26] — meanNeg (Negatif değer ortalaması) 
-
-### Tanım: 
-> Negatif değerlerin ortalaması. 
-### PLC Yorumu:
-
-Geri yöndeki çalışma seviyesini gösterir. 
-
-meanPos / meanNeg karşılaştırması yön simetrisi hakkında bilgi verir. 
-
- 
-
-## 🧩 fv[27] — ratioUpper (Üst sınıra yakın değer oranı) 
-
-### Tanım: 
-> Sinyalin üst limit veya eşik değerinin yakınında kalma oranı. 
-### PLC Yorumu:
-
-Sistem üst kapasiteye yakın çalışıyor olabilir. 
-
-Saturasyona yaklaşma davranışı izlenebilir. 
-
- 
-
-## 🧩 fv[28] — ratioLower (Alt sınıra yakın değer oranı) 
-
-### Tanım: 
-> Sinyalin alt limit/alt eşik civarında kalma oranı. 
-### PLC Yorumu:
-
-Alt limitlere dayanma durumu varsa burada görünür. 
-
-Ölü bölge, valf kapalı konum, düşük akım vs. 
-
- 
-
-## 🧩 fv[29] — clippedMean (Kırpılmış ortalama) 
-
-### Tanım: 
-> Aşırı uç değerler çıkarıldıktan sonra hesaplanan ortalama. 
-### PLC Yorumu:
-
-Spike veya gürültülü sensörlerde daha güvenilir ortalama sağlar. 
-
-Gerçek operasyon seviyesini outlier’lardan bağımsız gösterir. 
-
- 
-
-## 🧩 fv[30] — clippedStd (Kırpılmış standart sapma) 
-
-### Tanım: 
-> Uç değerler hariç tutulmuş standart sapma. 
-### PLC Yorumu:
-
-Gürültü veya hatalı okumalar sistemde yokmuş gibi yayılımı ölçer. 
-
-Normal çalışma esnasındaki gerçek stabiliteyi daha doğru yansıtır. 
-
- 
-
-## 🧩 fv[31] — uniqueFrac (Benzersiz değer oranı) 
+> ## 📌 fv[31] — uniqueFrac (Benzersiz değer oranı) 
 
 ### Tanım: 
 > uniqueCount / n — Sinyaldeki benzersiz değer oranı. 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Düşük uniqueFrac → Sinyal adım adım, düşük çözünürlükte veya quantize. 
+- ✔ **Düşük uniqueFrac → Sinyal adım adım, düşük çözünürlükte veya quantize.** 
 
-Yüksek uniqueFrac → Daha analog ve sürekli değişen yapı. 
+- ✔ **Yüksek uniqueFrac → Daha analog ve sürekli değişen yapı.** 
 
-Sensör çözünürlüğü, ADC bit değeri, PWM davranışları ile ilişkilidir. 
+- ✔ **Sensör çözünürlüğü, ADC bit değeri, PWM davranışları ile ilişkilidir.** 
 
  
 
-## 🧩 fv[32] — slope (Doğrusal Trend Eğimi) 
+> ## 📌 fv[32] — slope (Doğrusal Trend Eğimi) 
 
 ### Tanım: 
 > Zaman serisinin doğrusal trendinin eğimi. 
 
-Pozitif slope → yükselen trend 
+- ✔ **Pozitif slope → yükselen trend** 
 
-Negatif slope → düşen trend 
+- ✔ **Negatif slope → düşen trend** 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Sıcaklık, akım, basınç vb. verilerde drift, yavaş tırmanma, yavaş çökme tespitinde çok kritiktir. 
+- ✔ **Sıcaklık, akım, basınç vb. verilerde drift, yavaş tırmanma, yavaş çökme tespitinde çok kritiktir.** 
 
-slope sürekli pozitif → süreç ısınıyor, yük artıyor, sürtünme artıyor. 
+- ✔ **slope sürekli pozitif → süreç ısınıyor, yük artıyor, sürtünme artıyor.** 
 
-slope sürekli negatif → soğuma, basınç kaybı, akım düşmesi, güç zayıflığı. 
+- ✔ **slope sürekli negatif → soğuma, basınç kaybı, akım düşmesi, güç zayıflığı.** 
 
-Vibrasyonda düşük slope beklenir → artıyorsa yatak bozulması gibi trend başlıyor olabilir. 
+- ✔ **Vibrasyonda düşük slope beklenir → artıyorsa yatak bozulması gibi trend başlıyor olabilir.** 
 
-## 🧩 fv[33] — intercept (Trend’in Y-eksenini Kesim Noktası) 
+> ## 📌 fv[33] — intercept (Trend’in Y-eksenini Kesim Noktası) 
 
 ### Tanım: Trend çizgisinin 0. zamandaki tahmini değeri. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Tek başına teşhis amacıyla çok kullanılmaz, daha çok slope ile birlikte trendin seviyesini anlamak için. 
+- ✔ **Tek başına teşhis amacıyla çok kullanılmaz, daha çok slope ile birlikte trendin seviyesini anlamak için.** 
 
-Sistem startup, basınç offset, sensör offset incelemelerinde anlamlı olabilir. 
+- ✔ **Sistem startup, basınç offset, sensör offset incelemelerinde anlamlı olabilir.** 
 
-## 🧩 fv[34] — r2 (R-Squared, Trend Uygunluk Katsayısı) 
+> ## 📌 fv[34] — r2 (R-Squared, Trend Uygunluk Katsayısı) 
 
 ### Tanım: 
 > Doğrusal modelin (slope–intercept) veriyi ne kadar iyi açıkladığını ölçer. 
 
-1’e yakın → güçlü doğrusal trend 
+- ✔ **1’e yakın → güçlü doğrusal trend** 
 
-0’a yakın → çok gürültülü veya doğrusal olmayan sinyal 
+- ✔ **0’a yakın → çok gürültülü veya doğrusal olmayan sinyal** 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-r2 yüksek → süreç düzgün bir şekilde belirli bir yöne ilerliyor (ısı artışı, basınç yükselmesi). 
+- ✔ **r2 yüksek → süreç düzgün bir şekilde belirli bir yöne ilerliyor (ısı artışı, basınç yükselmesi).** 
 
-r2 düşük → sinyal kaotik, titreşimli, dalgalı, trend yok. 
+- ✔ **r2 düşük → sinyal kaotik, titreşimli, dalgalı, trend yok.** 
 
-PID döngüsü salınıyorsa r2 düşer. 
+- ✔ **PID döngüsü salınıyorsa r2 düşer.** 
 
-Mekanik vibrasyonlarda r2 genelde düşüktür → kaotik doğal davranış. 
+- ✔ **Mekanik vibrasyonlarda r2 genelde düşüktür → kaotik doğal davranış.** 
 
-## 🧩 fv[35] — diffMean (Birinci türev ortalaması) 
+> ## 📌 fv[35] — diffMean (Birinci türev ortalaması) 
 
 ### Tanım: 
 > Ardışık örnekler arasındaki farkların ortalaması. 
 
-Aslında sinyalin ortalama hızını ölçer. 
+- ✔ **Aslında sinyalin ortalama hızını ölçer.** 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Pozitif diffMean → sinyal genel olarak yukarı gidiyor. 
+- ✔ **Pozitif diffMean → sinyal genel olarak yukarı gidiyor.** 
 
-Negatif → aşağı gidiyor. 
+- ✔ **Negatif → aşağı gidiyor.** 
 
-slope ile kıyaslanabilir, fakat slope daha global trendken diffMean daha lokal hareketi yansıtır. 
+- ✔ **slope ile kıyaslanabilir, fakat slope daha global trendken diffMean daha lokal hareketi yansıtır.** 
 
-Kontrol döngüsünde aşırı osilasyon varsa diffMean 0’a yakın olur. 
+- ✔ **Kontrol döngüsünde aşırı osilasyon varsa diffMean 0’a yakın olur.** 
 
-## 🧩 fv[36] — diffStd (Birinci türev standart sapması) 
+> ## 📌 fv[36] — diffStd (Birinci türev standart sapması) 
 
 ### Tanım: Değişimin dalgalanma miktarı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Yüksek diffStd → sinyal çok oynak, hızlı değişiyor. 
+- ✔ **Yüksek diffStd → sinyal çok oynak, hızlı değişiyor.** 
 
-Motor akımı diffStd artarsa → yük dalgalanıyor veya mekanik sıkışma var. 
+- ✔ **Motor akımı diffStd artarsa → yük dalgalanıyor veya mekanik sıkışma var.** 
 
-Sıcaklık gibi yavaş değişen sinyallerde diffStd düşük olmalı → artış anomali göstergesi. 
+- ✔ **Sıcaklık gibi yavaş değişen sinyallerde diffStd düşük olmalı → artış anomali göstergesi.** 
 
-## 🧩 fv[37] — diffRms (Birinci türev RMS) 
+> ## 📌 fv[37] — diffRms (Birinci türev RMS) 
 
-### Tanım: Zaman serisinin değişim hızının enerji benzeri ölçüsü. 
+### Tanım: 
+> Zaman serisinin değişim hızının enerji benzeri ölçüsü. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Vibrasyon ve akım harmoniklerinde diffRms kritik bir göstergedir. 
+- ✔ **Vibrasyon ve akım harmoniklerinde diffRms kritik bir göstergedir.** 
 
-Sinyalin “hareketlilik enerjisini” verir. 
+- ✔ **Sinyalin “hareketlilik enerjisini” verir.** 
 
-diffRms artıyorsa → mekanik stres, bearing bozulması, ani yük değişimi olabilir. 
+- ✔ **diffRms artıyorsa → mekanik stres, bearing bozulması, ani yük değişimi olabilir.** 
 
-## 🧩 fv[38] — posDiff / n (Pozitif değişim oranı) 
+> ## 📌 fv[38] — posDiff / n (Pozitif değişim oranı) 
 
-## 🧩 fv[39] — negDiff / n (Negatif değişim oranı) 
+> ## 📌 fv[39] — negDiff / n (Negatif değişim oranı) 
 
-### Tanım: Ardışık farkların yukarı yönlü ve aşağı yönlü sıklığı. 
+### Tanım: 
+> Ardışık farkların yukarı yönlü ve aşağı yönlü sıklığı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-posDiff oranı baskın → sinyal çoğunlukla yükseliyor. 
+- ✔ **posDiff oranı baskın → sinyal çoğunlukla yükseliyor.** 
 
-negDiff oranı baskın → sinyal çoğunlukla düşüyor. 
+- ✔ **negDiff oranı baskın → sinyal çoğunlukla düşüyor.** 
 
-İki oran eşit → sinyal dengeli, osilasyonlu veya kararlı olabilir. 
+- ✔ **İki oran eşit → sinyal dengeli, osilasyonlu veya kararlı olabilir.** 
 
-Vibrasyon sinyallerinde oranlar genelde eşit olur; dengesizlik varsa sensör bias’ı olabilir. 
+- ✔ **Vibrasyon sinyallerinde oranlar genelde eşit olur; dengesizlik varsa sensör bias’ı olabilir.** 
 
-## 🧩 fv[40] — zeroCross (Sıfır geçiş sayısı) 
+> ## 📌 fv[40] — zeroCross (Sıfır geçiş sayısı) 
 
-### Tanım: Sinyal işaret değiştirirken kaç kez 0 eksenini kestiği. 
+### Tanım: 
+> Sinyal işaret değiştirirken kaç kez 0 eksenini kestiği. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Titreşim, akım ve hız ölçümlerinde çok önemli bir göstergedir. 
+- ✔ **Titreşim, akım ve hız ölçümlerinde çok önemli bir göstergedir.** 
 
-Yüksek zeroCross → yüksek frekanslı bileşenler mevcut. 
+- ✔ **Yüksek zeroCross → yüksek frekanslı bileşenler mevcut.** 
 
-Az zeroCross → düşük frekans veya DC ağırlıklı sinyal. 
+- ✔ **Az zeroCross → düşük frekans veya DC ağırlıklı sinyal.** 
 
-Ani değişim → mekanik gevşeme, rezonans veya filtre bozulması göstergesi olabilir. 
+- ✔ **Ani değişim → mekanik gevşeme, rezonans veya filtre bozulması göstergesi olabilir.** 
 
-## 🧩 fv[41] — zeroCrossRate (Zaman başına sıfır geçiş frekansı) 
+> ## 📌 fv[41] — zeroCrossRate (Zaman başına sıfır geçiş frekansı) 
 
-### Tanım: zeroCross / pencere uzunluğu 
+### Tanım: 
+> zeroCross / pencere uzunluğu 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Sinyalin frekansını kabaca tahmin etmek için kullanılabilir. 
+- ✔ **Sinyalin frekansını kabaca tahmin etmek için kullanılabilir.** 
 
-Frekans artışı → vibrasyon şiddetleniyor, tahrik osilasyonu artıyor. 
+- ✔ **Frekans artışı → vibrasyon şiddetleniyor, tahrik osilasyonu artıyor.** 
 
-Frekans düşüşü → sistem yavaşlıyor, damping artıyor, sürtünme yükselmiş olabilir. 
+- ✔ **Frekans düşüşü → sistem yavaşlıyor, damping artıyor, sürtünme yükselmiş olabilir.** 
 
-## 🧩 fv[42] — maxDiff (En büyük ardışık artış) 
+> ## 📌 fv[42] — maxDiff (En büyük ardışık artış) 
 
-## 🧩 fv[43] — minDiff (En büyük ardışık düşüş) 
+> ## 📌 fv[43] — minDiff (En büyük ardışık düşüş) 
 
-### Tanım: Örnekler arasındaki en büyük yükseliş ve en büyük düşüş. 
+### Tanım: 
+> Örnekler arasındaki en büyük yükseliş ve en büyük düşüş. 
 
-### PLC Yorumu:
-
- 
-
-Sensörde ani sıçrama, basınçta ani çökme, akımda tepki tepe noktası → maxDiff / minDiff ile yakalanır. 
-
-Peak-to-peak değişimler için kritik sinyal. 
-
-Mekanik şok veya tork darbesi varsa fark değerleri bir anda büyür. 
+### 💊 Proses Yorumu:
 
  
 
-## 🧩 fv[44] — jerkRms (İkinci türev RMS – Jerk enerjisi) 
+- ✔ **Sensörde ani sıçrama, basınçta ani çökme, akımda tepki tepe noktası → maxDiff / minDiff ile yakalanır.** 
 
-### Tanım: Jerk = ivmenin türevi. Sinyalin üçüncü derece değişim hızını verir. 
+- ✔ **Peak-to-peak değişimler için kritik sinyal.** 
+
+- ✔ **Mekanik şok veya tork darbesi varsa fark değerleri bir anda büyür.** 
+
+ 
+
+> ## 📌 fv[44] — jerkRms (İkinci türev RMS – Jerk enerjisi) 
+
+### Tanım: 
+> Jerk = ivmenin türevi. Sinyalin üçüncü derece değişim hızını verir. 
 
 PLC sinyali için → “ani değişimlerin keskinliği”. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Jerk arttıkça sinyal daha sert, daha keskin değişiyor → mekanik şok, çarpma, dişli boşluğu, motor kontrol problemleri. 
+- ✔ **Jerk arttıkça sinyal daha sert, daha keskin değişiyor → mekanik şok, çarpma, dişli boşluğu, motor kontrol problemleri.** 
 
-Vibrasyon analizinde jerk, özellikle boşluk (backlash) veya gevşek bağlantı tespitinde çok güçlü bir metriktir. 
+- ✔ **Vibrasyon analizinde jerk, özellikle boşluk (backlash) veya gevşek bağlantı tespitinde çok güçlü bir metriktir.** 
 
-Sıcaklık gibi yavaş sinyallerde jerkRms düşük olmalı → artıyorsa sensör gürültüsü veya arızası. 
+- ✔ **Sıcaklık gibi yavaş sinyallerde jerkRms düşük olmalı → artıyorsa sensör gürültüsü veya arızası.** 
 
  
 
-## 🧩 fv[45] — peakToPeakDiff (diff’in tepe-çukur farkı) 
+> ## 📌 fv[45] — peakToPeakDiff (diff’in tepe-çukur farkı) 
 
 ### Tanım: maxDiff - minDiff 
 
-Yani ardışık değişimlerin en büyüğü ve en küçüğü arasındaki fark. 
+> Ardışık değişimlerin en büyüğü ve en küçüğü arasındaki fark. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-“Değişimin değişimi” yani sinyalin ne kadar agresif sallandığını gösterir. 
+- ✔ **“Değişimin değişimi” yani sinyalin ne kadar agresif sallandığını gösterir.** 
 
-peakToPeakDiff yükseliyorsa → proses sallanıyor, tork dalgalanıyor, akım kararsız, PID loop overshoot yapıyor. 
+- ✔ **peakToPeakDiff yükseliyorsa → proses sallanıyor, tork dalgalanıyor, akım kararsız, PID loop overshoot yapıyor.** 
 
-Vibrasyon ve tork ölçümlerinde güçlü bir uyarı göstergesidir. 
-
- 
-
-## 🧩 fv[46] — trendCurvature  
-
-İkinci dereceden polinom trend eğrisi üzerinden kıvrımlılık ölçülür. 
-
-Bu, hızlanan / yavaşlayan trendlerin tespitine yarar.. 
+- ✔ **Vibrasyon ve tork ölçümlerinde güçlü bir uyarı göstergesidir.** 
 
  
 
-## 🧩 fv[47] — stabilityScore (Stabilite Skoru) 
+> ## 📌 fv[46] — trendCurvature  
+### Tanım: 
+> Zaman serisinin trendindeki ivmeyi, yani hızlanma / yavaşlama derecesini ölçmek.
+> Doğrusal trend eğimleri bunu yakalayamaz — ama kıvrımlılık yakalar.
+> İkinci dereceden polinom trend eğrisi üzerinden kıvrımlılık ölçülür. 
+> Hızlanan / yavaşlayan trendlerin tespitine yarar.. 
+### 💊 Proses Yorumu:
+- ✔ **Dönüş (reversal) noktalarını yakalar**
+- ✔ **Bollinger/RSI gibi indikatörlerin göremediği ivmeyi algılar**
+- ✔ **Trend kırılması öncesi uyarı sinyali üretir**
+- ✔ **Trend gücü + yön değişimi kombinasyonunu tek bir sayı ile verir**
+- ✔ **Noise’a karşı dayanıklıdır (sadece farkların aralığına bakar)**
+ 
 
-### Tanım: Genelde farklı istatistiklerin birleşimiyle hesaplanan normalize bir kararlılık metriği. 
+> ## 📌 fv[47] — stabilityScore (Stabilite Skoru) 
 
-Sinyalin stabil olup olmadığını 0–1 aralığında değerlendiren bir değer. 
+### Tanım: 
+> Genelde farklı istatistiklerin birleşimiyle hesaplanan normalize bir kararlılık metriği. 
 
-PLC yorumu (çok önemli): 
+> Sinyalin stabil olup olmadığını 0–1 aralığında değerlendiren bir değer. 
 
-1 → tamamen stabil, düzgün, dalgalanma düşük 
+### 💊 Proses Yorumu: (🚨 çok önemli): 
 
-0 → çok düzensiz, gürültülü, kontrolsüz 
+- ✔ **1 → tamamen stabil, düzgün, dalgalanma düşük** 
+
+- ✔ **0 → çok düzensiz, gürültülü, kontrolsüz** 
 
  
 
-StabilityScore genellikle şunları içerir: 
+> StabilityScore genellikle şunları içerir: 
 
-düşük varyans 
+- düşük varyans 
 
-düşük diffStd / diffRms 
+- düşük diffStd / diffRms 
 
-düşük jerk 
+- düşük jerk 
 
-yüksek r2 (trend düzgün ise) 
+- yüksek r2 (trend düzgün ise) 
 
-düşük peak-to-peak 
+- düşük peak-to-peak 
 
-düşük entropy 
+- düşük entropy 
 
- 
 
- 
+- ✔ **Bu metrik “bir bakışta stabilite ölçümü” sağlar. 
 
-Bu metrik “bir bakışta stabilite ölçümü” sağlar. 
+- ✔ **Makine durumu, proses kararlılığı, PID tuning kalitesi gibi alanlarda çok değerlidir. 
 
-Makine durumu, proses kararlılığı, PID tuning kalitesi gibi alanlarda çok değerlidir. 
 
-48–63 arası özellikler özellikle EMA (Exponential Moving Average) tabanlı trend, gürültü ve ani sapma analizini kapsar. 
-
- 
-
-Her birinin PLC mühendisliği açısından pratik yorumu net şekilde verilmiştir. 
-
- 
-
- 
 
  
 
  
 
-## 🧩 fv[48] — emaSlow[n-1] (Yavaş EMA Son Değer) 
-
-### Tanım: Uzun periyotlu EMA’nın en son hesaplanan değeri. 
-
-Sinyalin uzun vadeli trendini gösterir. 
-
-### PLC Yorumu:
-
-Isı, basınç, akım gibi yavaş değişen proseslerde baz çizgi (baseline) olarak kullanılabilir. 
-
-Sinyal emaSlow’un çok üzerine çıkıyorsa → olası ani yük artışı veya geçici anomali 
-
-Sürekli uzaklaşıyorsa → kalıcı trend değişikliğinin işareti 
+ 
 
  
 
-## 🧩 fv[49] — emaFast[n-1] (Hızlı EMA Son Değer) 
+ 
+
+ 
+
+> ## 📌 fv[48] — emaSlow[n-1] (Yavaş EMA Son Değer) 
+
+### Tanım: 
+> Uzun periyotlu EMA’nın en son hesaplanan değeri. 
+
+> Sinyalin uzun vadeli trendini gösterir. 
+
+### 💊 Proses Yorumu:
+
+- ✔ **Isı, basınç, akım gibi yavaş değişen proseslerde baz çizgi (baseline) olarak kullanılabilir.** 
+
+- ✔ **Sinyal emaSlow’un çok üzerine çıkıyorsa → olası ani yük artışı veya geçici anomali**
+
+- ✔ **Sürekli uzaklaşıyorsa → kalıcı trend değişikliğinin işareti** 
+
+ 
+
+> ## 📌 fv[49] — emaFast[n-1] (Hızlı EMA Son Değer) 
 
 ### Tanım: Daha kısa pencereli EMA’nın son değeri. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Anlık değişimlere duyarlıdır. 
+- ✔ **Anlık değişimlere duyarlıdır.** 
 
-emaFast – emaSlow farkı, bir nevi momentum veya kısa vadeli trend gücünü gösterir. 
+- ✔ **emaFast – emaSlow farkı, bir nevi momentum veya kısa vadeli trend gücünü gösterir.** 
 
-PID osilasyonları veya yüksek frekanslı titreşimleri emaFast yakalar. 
+- ✔ **PID osilasyonları veya yüksek frekanslı titreşimleri emaFast yakalar.** 
 
  
 
-## 🧩 fv[50] — resSlowMean (Slow EMA Artık Ortalaması) 
+> ## 📌 fv[50] — resSlowMean (Slow EMA Artık Ortalaması) 
 
 Artık = (sinyal – emaSlow) 
 
-### Tanım: Uzun vadeli trendden sapmanın ortalaması. 
+### Tanım: 
+> Uzun vadeli trendden sapmanın ortalaması. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Sinyal ortalama olarak baz çizginin üzerinde mi altında mı? 
+- ✔ **Sinyal ortalama olarak baz çizginin üzerinde mi altında mı?** 
 
-Sıcaklık sürekli emaSlow’un üzerinde → sistem ısınıyor. 
+- ✔ **Sıcaklık sürekli emaSlow’un üzerinde → sistem ısınıyor.** 
 
-Akım sürekli altında → yük hafiflemiş. 
+- ✔ **Akım sürekli altında → yük hafiflemiş.** 
 
-Basınç sürekli altında → kaçak olabilir. 
-
- 
-
- 
+- ✔ **Basınç sürekli altında → kaçak olabilir.** 
 
  
 
@@ -722,74 +715,80 @@ Basınç sürekli altında → kaçak olabilir.
 
  
 
-## 🧩 fv[51] — resSlowStd (Slow Residual Standart Sapması) 
-
-### Tanım: Uzun vadeli trend etrafındaki oynaklığın miktarı. 
-
-### PLC Yorumu:
-
-Basınç veya motor akımı gibi sinyallerde resSlowStd beklenenden yüksekse: 
  
-
-Proses dalgalı 
-
-Regülasyon kötü 
-
-PID parametreleri yetersiz 
-
-Mekanik çalkantı olabilir 
 
  
 
-## 🧩 fv[52] — resFastMean (Fast EMA Artık Ortalaması) 
+> ## 📌 fv[51] — resSlowStd (Slow Residual Standart Sapması) 
+
+### Tanım: 
+> Uzun vadeli trend etrafındaki oynaklığın miktarı. 
+
+### 💊 Proses Yorumu:
+
+- ✔ **Basınç veya motor akımı gibi sinyallerde resSlowStd beklenenden yüksekse:** 
+
+- 📢 Proses dalgalı 
+
+- 📢 Regülasyon kötü 
+
+- 📢 PID parametreleri yetersiz 
+
+- 📢 Mekanik çalkantı olabilir 
+
+ 
+
+> ## 📌 fv[52] — resFastMean (Fast EMA Artık Ortalaması) 
 
 ### Tanım: Hızlı trendden (emaFast) sapmanın ortalaması. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Daha lokal bias gösterir. 
+- ✔ **Daha lokal bias gösterir.** 
 
-Sensör kısa süreli kayma yapmış mı? 
+- ✔ **Sensör kısa süreli kayma yapmış mı?** 
 
-Hafif titreşimli sinyallerde dengesizliği yakalar. 
+- ✔ **Hafif titreşimli sinyallerde dengesizliği yakalar.** 
 
-Yükselen/azalan ivme dönemlerinde anlamlıdır. 
-
- 
-
-## 🧩 fv[53] — resFastStd (Fast EMA Artık Std) 
-
-### Tanım: Hızlı EMA’ya göre oynaklık. 
-
-### PLC Yorumu:
-
-Sinyalin kısa vadede ne kadar çalkantılı olduğunu ölçer. 
-
-Motor akımı, vibrasyon, hız kontrolü gibi kısa zaman sabitli süreçlerde önemlidir. 
-
-Artış → osilasyon, gevşeklik, rezonans, yük dengesizliği. 
+- ✔ **Yükselen/azalan ivme dönemlerinde anlamlıdır.** 
 
  
 
-## 🧩 fv[54] — resSlowRms (Slow EMA Artık RMS) 
+> ## 📌 fv[53] — resFastStd (Fast EMA Artık Std) 
 
-### Tanım: Uzun trendden sapmanın enerji değeri. 
+### Tanım: 
+> Hızlı EMA’ya göre oynaklık. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
-Proses ne kadar stabil? 
+- ✔ **Sinyalin kısa vadede ne kadar çalkantılı olduğunu ölçer.** 
 
-resSlowRms düşük → proses düzgün ve sakin. 
+- ✔ **Motor akımı, vibrasyon, hız kontrolü gibi kısa zaman sabitli süreçlerde önemlidir.** 
 
-yüksek → makine agresif çalışıyor, akım basınç dalgalanıyor. 
+- ✔ **Artış → osilasyon, gevşeklik, rezonans, yük dengesizliği.** 
 
  
 
-## 🧩 fv[55] — resFastRms (Fast EMA Artık RMS) 
+> ## 📌 fv[54] — resSlowRms (Slow EMA Artık RMS) 
+
+### Tanım: 
+> Uzun trendden sapmanın enerji değeri. 
+
+### 💊 Proses Yorumu:
+
+- ✔ **Proses ne kadar stabil?** 
+
+- ✔ **resSlowRms düşük → proses düzgün ve sakin.** 
+
+- ✔ **yüksek → makine agresif çalışıyor, akım basınç dalgalanıyor.** 
+
+ 
+
+> ## 📌 fv[55] — resFastRms (Fast EMA Artık RMS) 
 
 ### Tanım: Hızlı trend sapmalarının enerjisi. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek frekanslı gürültü, harmonik, jitter tespitinde etkili. 
 
@@ -799,11 +798,11 @@ PID kaynaklı küçük hızlı dalgalanmalar burada görünür.
 
  
 
-## 🧩 fv[56] — slowSpikeCount (Slow EMA’ya Göre Spike Sayısı) 
+> ## 📌 fv[56] — slowSpikeCount (Slow EMA’ya Göre Spike Sayısı) 
 
 Spike = |resSlow| > threshold 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Uzun vadeli beklentiye göre anormal yükselmeler/düşüşler 
 
@@ -830,11 +829,11 @@ ani ısı değişimi
 
  
 
-## 🧩 fv[57] — fastSpikeCount (Fast EMA’ya Göre Spike Sayısı) 
+> ## 📌 fv[57] — fastSpikeCount (Fast EMA’ya Göre Spike Sayısı) 
 
 ### Tanım: Daha kısa vadeli spike sayısı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek frekanslı anomali tespiti 
 
@@ -846,11 +845,11 @@ Gürültü altında çalışan sistemlerde hızlı spike sayısı kritik.
 
  
 
-## 🧩 fv[58] — slowSpikeRate (Spike / n) 
+> ## 📌 fv[58] — slowSpikeRate (Spike / n) 
 
 ### Tanım: Uzun vadeli anomali oranı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -860,11 +859,11 @@ Sürekli slow spike oluşması → proses çok dalgalı veya mekanik parça gev�
 
  
 
-## 🧩 fv[59] — fastSpikeRate (Fast Spike / n) 
+> ## 📌 fv[59] — fastSpikeRate (Fast Spike / n) 
 
 ### Tanım: Kısa vadeli anomali frekansı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek fastSpikeRate → 
  
@@ -889,9 +888,9 @@ bearing/dişli bozulmalarına işaret edebilir.
 
  
 
-## 🧩 fv[60] — lastValue (Son Örnek) 
+> ## 📌 fv[60] — lastValue (Son Örnek) 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Anlık değer. 
 
@@ -901,9 +900,9 @@ Model son anda sinyalin nereye geldiğini bilmezse yorum hatalı olabilir. Bu y�
 
  
 
-## 🧩 fv[61] — firstValue (İlk Örnek) 
+> ## 📌 fv[61] — firstValue (İlk Örnek) 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Pencere başındaki sistem durumunu gösterir. 
 
@@ -911,11 +910,11 @@ last - first ile bölgedeki değişimin net yönü alınır.
 
  
 
-## 🧩 fv[62] — lastMinusFirst (Toplam Değişim) 
+> ## 📌 fv[62] — lastMinusFirst (Toplam Değişim) 
 
 ### Tanım: Sinyalin pencere boyunca yaptığı net hareket. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Pozitif → süreç yükselmiş 
 
@@ -933,11 +932,11 @@ Sıcaklık/akım/başınç drift tespitinde çok kritik.
 
  
 
-## 🧩 fv[63] — emaSlowMinusMean (Slow EMA – Basit Ortalama Farkı) 
+> ## 📌 fv[63] — emaSlowMinusMean (Slow EMA – Basit Ortalama Farkı) 
 
 ### Tanım: EMA uzun trendi ile pencerenin ortalama değeri arasındaki fark. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Eğer emaSlow > mean → sinyal yukarı doğru ivmeleniyor. 
 
@@ -963,7 +962,7 @@ Her segment için mean, std, slope ve RMS çıkarılıyor.
 
 Bu yapılar özellikle trend değişikliği, geçişler, süreç stabilitesi ve anlık olay tespiti için son derece güçlüdür. 
 
-## 🧩 fv[64–67] = segMeans[0–3] 
+> ## 📌 fv[64–67] = segMeans[0–3] 
 
 Segment Ortalama Değerleri 
 
@@ -971,7 +970,7 @@ Segment Ortalama Değerleri
 
 Her alt segmentin ortalama değeri. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Bu değerler sinyalin zaman içinde nasıl kaydığını anlamayı sağlar. 
 
@@ -995,7 +994,7 @@ Sıcaklık segment 0 → soğuk, segment 3 → ısınma eğilimi
 
  
 
-## 🧩 fv[68–71] = segStds[0–3] 
+> ## 📌 fv[68–71] = segStds[0–3] 
 
 Segment Standart Sapmaları (Oynaklık) 
 
@@ -1003,7 +1002,7 @@ Segment Standart Sapmaları (Oynaklık)
 
 Her segmentte sinyal ne kadar dalgalı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 segStd düşük → segment stabil 
 
@@ -1019,7 +1018,7 @@ Basınç: segment 2–3 std yükseliyor → valf açıldığında sistem kontrol
 
 Segment STD özellikle “lokal arıza başlangıcı” tespitinde çok güçlüdür. 
 
-## 🧩 fv[72–75] = segSlopes[0–3] 
+> ## 📌 fv[72–75] = segSlopes[0–3] 
 
 Segment Trend Eğimi (Slope) 
 
@@ -1027,7 +1026,7 @@ Segment Trend Eğimi (Slope)
 
 Her segmentte lineer fit eğimi. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Pozitif slope → segmentte yükselen trend 
 
@@ -1057,7 +1056,7 @@ Basınç segment 3 slope negatif → sistem rahatlıyor
 
  
 
-## 🧩 fv[76–79] = segRms[0–3] 
+> ## 📌 fv[76–79] = segRms[0–3] 
 
 Segment Enerji / Güç (RMS) 
 
@@ -1065,7 +1064,7 @@ Segment Enerji / Güç (RMS)
 
 Her segmentte sinyal RMS değeri. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 RMS, titreşim veya akım gibi sinyallerde enerji/art yükünü temsil eder. 
 
@@ -1091,13 +1090,13 @@ RMS yükseliyorsa → kontrol zayıf, osilasyon artıyor.
 
  
 
-## 🧩 fv[80] = segMeanDelta10 
+> ## 📌 fv[80] = segMeanDelta10 
 
 Segment1 – Segment0 Ortalama Farkı 
 
 Anlamı: İlk iki segment arasındaki ortalama değişimi ölçer. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Pozitif → süreç ikinci bölümde yükselmeye başlıyor 
 
@@ -1113,7 +1112,7 @@ Büyük fark → ani geçiş, ani yük/akım/ısı değişimi
 
  
 
-## 🧩 fv[81] = segMeanDelta21 
+> ## 📌 fv[81] = segMeanDelta21 
 
  
 
@@ -1131,7 +1130,7 @@ Anlamı: Orta bölgede trend değişimini gösterir.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Bu değer genelde proses ortasında yaşanan değişimleri anlamak için en kritiklerden biridir. 
 
@@ -1143,7 +1142,7 @@ Bu değer genelde proses ortasında yaşanan değişimleri anlamak için en krit
 
  
 
-## 🧩 fv[82] = segMeanDelta32 
+> ## 📌 fv[82] = segMeanDelta32 
 
  
 
@@ -1161,7 +1160,7 @@ Anlamı: Son bölümdeki değişim.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1183,7 +1182,7 @@ Son bölüm anomaly check için çok değerlidir.
 
  
 
-## 🧩 fv[83] = segMeanDelta30 
+> ## 📌 fv[83] = segMeanDelta30 
 
  
 
@@ -1201,7 +1200,7 @@ Bu, segmentlerin baştan sona genel drift’ini gösterir.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1225,7 +1224,7 @@ Bu değer, trend yönü için tek başına çok kuvvetlidir.
 
  
 
-## 🧩 fv[84] = segStdMax 
+> ## 📌 fv[84] = segStdMax 
 
  
 
@@ -1243,7 +1242,7 @@ Anlamı: En dalgalı segmentin standart sapması.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Prosesin en problemli yerini söyler: 
 
@@ -1261,7 +1260,7 @@ segStdMax yüksek → o bölgede gürültü/titreşim/PID çalkantısı artmış
 
  
 
-## 🧩 fv[85] = segStdMin 
+> ## 📌 fv[85] = segStdMin 
 
  
 
@@ -1295,7 +1294,7 @@ Sistem hangi bölümde en stabil çalışıyor → buradan anlaşılır
 
  
 
-## 🧩 fv[86] = segStdRange 
+> ## 📌 fv[86] = segStdRange 
 
  
 
@@ -1313,7 +1312,7 @@ Anlamı: Segmentler arasındaki dalgalanma farkı.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1335,7 +1334,7 @@ Bu “stabilite uniformity” ölçüsüdür.
 
  
 
-## 🧩 fv[87] = largestMeanJump 
+> ## 📌 fv[87] = largestMeanJump 
 
  
 
@@ -1355,7 +1354,7 @@ max(|mean0-mean1|, |mean1-mean2|, |mean2-mean3|)
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Süreçteki en büyük ani değişim burada. 
 
@@ -1387,7 +1386,7 @@ gibi olayları yakalar.
 
  
 
-## 🧩 fv[88] = segMeanSlope 
+> ## 📌 fv[88] = segMeanSlope 
 
  
 
@@ -1405,7 +1404,7 @@ Segment mean dizisi → [m0, m1, m2, m3] üzerine lineer fit slope.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1429,7 +1428,7 @@ Bu, uzun segment trendinin sade bir temsilidir.
 
  
 
-## 🧩 fv[89] = segStdSlope 
+> ## 📌 fv[89] = segStdSlope 
 
  
 
@@ -1447,7 +1446,7 @@ STD dizisi [s0, s1, s2, s3] üzerine lineer fit.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1471,7 +1470,7 @@ Negatif → süreç zamanla toparlıyor
 
  
 
-## 🧩 fv[90] = segMeanVar 
+> ## 📌 fv[90] = segMeanVar 
 
  
 
@@ -1489,7 +1488,7 @@ SegMean değerleri arasındaki dağılımın genişliği.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1511,7 +1510,7 @@ Bu, “genel davranış değişkenliği” için iyi bir metriktir.
 
  
 
-## 🧩 fv[91] = segStdVar 
+> ## 📌 fv[91] = segStdVar 
 
  
 
@@ -1529,7 +1528,7 @@ STD’lerin dağılımının genişliğini ölçer.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1547,7 +1546,7 @@ Küçük varyans → sistem tüm zaman boyunca aynı stabilitede
 
  
 
-## 🧩 fv[92] = segSlopeMax 
+> ## 📌 fv[92] = segSlopeMax 
 
  
 
@@ -1565,7 +1564,7 @@ Slope dizisi → [slope0, slope1, slope2, slope3]
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 En hızlı yükselişin olduğu segmenti temsil eder. 
 
@@ -1579,7 +1578,7 @@ En hızlı yükselişin olduğu segmenti temsil eder.
 
  
 
-## 🧩 fv[93] = segSlopeMin 
+> ## 📌 fv[93] = segSlopeMin 
 
  
 
@@ -1607,7 +1606,7 @@ Bu, en hızlı düşüşün olduğu bölgeyi söyler.
 
  
 
-## 🧩 fv[94] = segSlopeRange 
+> ## 📌 fv[94] = segSlopeRange 
 
  
 
@@ -1625,7 +1624,7 @@ Anlamı: Segment eğimleri arasındaki dağılım.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1643,7 +1642,7 @@ Küçük fark → trend her yerde benzer → stabil sistem
 
  
 
-## 🧩 fv[95] = segSlopeRms 
+> ## 📌 fv[95] = segSlopeRms 
 
  
 
@@ -1661,7 +1660,7 @@ Slope değerlerinin enerji/şiddet ölçüsü.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1677,7 +1676,7 @@ Titreşim veya akım sistemlerinde “trend gücü” için çok anlamlıdır.
 
  
 
-## 🧩 fv[96] = totalEnergy 
+> ## 📌 fv[96] = totalEnergy 
 
  
 
@@ -1695,7 +1694,7 @@ Anlamı: FFT binlerinin enerji toplamı.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1715,7 +1714,7 @@ Ani artış → mekanik gevşeme, rulman bozulması, PID kararsızlığı
 
  
 
-## 🧩 fv[97] = centroid 
+> ## 📌 fv[97] = centroid 
 
  
 
@@ -1733,7 +1732,7 @@ Anlamı: Enerjinin frekans ekseninde ağırlık merkezi.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1755,7 +1754,7 @@ Bu metrik, “ses parlaklığı” gibi düşünülebilir ama mekanik sinyallerd
 
  
 
-## 🧩 fv[98] = spread 
+> ## 📌 fv[98] = spread 
 
 Spektral Yayılım 
 
@@ -1767,7 +1766,7 @@ Anlamı: Enerji ne kadar geniş bir frekans aralığına dağılmış.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
  
 
@@ -1789,23 +1788,23 @@ Arıza oluştuğunda spread genelde artar.
 
  
 
-## 🧩 fv[99] = flatness 
+> ## 📌 fv[99] = flatness 
 
 Spektral Düzlük (Spectral Flatness) 
 
 (Sinyalin gürültü mü, ton mu olduğunu ölçer) 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 1’e yakın → beyaz gürültü gibi; ton yok → mekanik bozukluk, sürtünme, dağınık titreşim 
 
 0’a yakın → belirgin tonlar → fan, motor, rulman karakteristik frekansları 
 
-## 🧩 fv[100] = crest 
+> ## 📌 fv[100] = crest 
 
 Crest Factor (Peak / RMS) 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek crest → kısa süreli darbeler, çarpma, rulman bozukluğu 
 
@@ -1817,7 +1816,7 @@ Düşük crest → pürüzsüz çalışma
 
 Bu arıza tespitinde çok kritik bir metriktir. 
 
-## 🧩 fv[101]–## 🧩 fv[108] = bandEnergy[0..7] 
+> ## 📌 fv[101]–> ## 📌 fv[108] = bandEnergy[0..7] 
 
 8 Bantlık Enerji Dağılımı 
 
@@ -1829,7 +1828,7 @@ Tipik olarak bantlar:
 
 4–7: yüksek frekans, harmonikler, rulman hasar frekansları 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Düşük bantlar ↑ → yük salınımı, PID osilasyonu 
 
@@ -1839,13 +1838,13 @@ Yüksek bantlar ↑ → rulman iç/orta/dış bilezik hasarı, sürtünme, gövd
 
 Bu dağılım bir çeşit “frekans fingerprint” oluşturur. 
 
-## 🧩 fv[109] = domFreq 
+> ## 📌 fv[109] = domFreq 
 
 Baskın Frekans (Dominant Frequency) 
 
 Sinyalde en yüksek enerjiyi taşıyan frekans. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Motor hızına yakın → normal 
 
@@ -1855,41 +1854,41 @@ Yüksek frekanslarda ani kayma → anomali
 
 Bu tek başına çok güçlü bir arıza belirtecidir. 
 
-## 🧩 fv[110] = sqrt(domMag) 
+> ## 📌 fv[110] = sqrt(domMag) 
 
 Baskın Frekansın Kök-Enerjisi 
 
 Baskın frekans büyüklüğünü normalize eder. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Artışı → domFreq enerjisi yükseliyor (özellikle rulman problemlerinde kritik) 
 
-## 🧩 fv[111] = secondFreq 
+> ## 📌 fv[111] = secondFreq 
 
 İkinci Baskın Frekans 
 
 İlk dominanta ek olarak 2. büyük pik. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Harmonik çiftler → rezonans modları 
 
 İkinci frekansta yükseliş → mekanik arızalarda genelde birlikte büyür 
 
-## 🧩 fv[112] = harmonicity 
+> ## 📌 fv[112] = harmonicity 
 
 Harmonik Üst-Alt Uyum Ölçüsü 
 
 Enerji harmonik frekanslarda mı yoğunlaşıyor? 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek → sistem harmonik olarak çalışıyor (motor/generator normal) 
 
 Düşük → enerjinin harmonik yapısı bozulmuş → arıza işareti 
 
-## 🧩 fv[113] = lowRatio 
+> ## 📌 fv[113] = lowRatio 
 
 Düşük Bant Enerjisi / Toplam Enerji 
 
@@ -1897,7 +1896,7 @@ Düşük frekans oranı.
 
 Genellikle yük salınımları veya yavaş osilasyonları gösterir. 
 
-## 🧩 fv[114] = midRatio 
+> ## 📌 fv[114] = midRatio 
 
 Orta Bant Enerjisi / Toplam Enerji 
 
@@ -1909,7 +1908,7 @@ Mil hizalama bozukluğu
 
 Mekanik gevşeme 
 
-## 🧩 fv[115] = highRatio 
+> ## 📌 fv[115] = highRatio 
 
 Yüksek Bant Enerjisi / Toplam Enerji 
 
@@ -1934,19 +1933,19 @@ gibi arızaları belirgin gösterir.
 
  
 
-## 🧩 fv[116] = specEntropy 
+> ## 📌 fv[116] = specEntropy 
 
 Spektral Entropi 
 
 Spektrum ne kadar düzensiz? 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek → gürültü çok, süreç karmaşık 
 
 Düşük → belirgin frekanslar baskın, sistem düzenli 
 
-## 🧩 fv[117] = noiseFloor 
+> ## 📌 fv[117] = noiseFloor 
 
 Spektral Gürültü Tabanı 
 
@@ -1954,15 +1953,15 @@ FFT’de taban gürültü seviyesi.
 
  
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Artması → yatak aşınması, sürtünme, sensör bozulması 
 
-## 🧩 fv[118] = snr 
+> ## 📌 fv[118] = snr 
 
 Sinyal Gürültü Oranı (Signal-to-Noise Ratio) 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek → sistem net, stabil 
 
@@ -1970,13 +1969,13 @@ Düşük → gürültü artmış, sistem bozuluyor
 
 Motor ve fan gibi sistemlerde SNR düşüşü erken uyarıdır. 
 
-## 🧩 fv[119] = dcComponent 
+> ## 📌 fv[119] = dcComponent 
 
 DC Bileşeni (Offset) 
 
 Sinyalin ortalama kayması. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Setpoint drift 
 
@@ -1986,13 +1985,13 @@ Basınç/sıcaklık offset kayması
 
 DC kayması çoğunlukla kalibrasyon veya mekanik sürtünmenin erken işaretidir. 
 
-## 🧩 fv[120] = acEnergyRatio 
+> ## 📌 fv[120] = acEnergyRatio 
 
 AC Enerjisi / Toplam Enerji 
 
 Yani salınım miktarı. 
 
-### PLC Yorumu:
+### 💊 Proses Yorumu:
 
 Yüksek → sistemde osilasyon baskın 
 
