@@ -1,140 +1,193 @@
 
-# H.Stats Fonksiyonları – Kullanım Dokümantasyonu (Markdown)
+# H.Stats Dokümantasyonu (Unicode Matematik – GitHub Uyumlu)
 
-## 1. Temel İstatistik Fonksiyonları
-### Min(tag, n)
-```csharp
-double? H.Stats.Min(string tag, int n)
+Bu dokümantasyon, tüm matematiksel formüller **Unicode** kullanılarak yazılmıştır.  
+LaTeX, HTML veya MathJax içermez — GitHub Markdown görüntüleyicisinde **%100 doğru görünür**.
+
+---
+
+# 1) Temel İstatistik Fonksiyonları
+
+## Min(tag, n)
 ```
-Son n değerden minimum değeri döndürür.
-
-### Max(tag, n)
-```csharp
-double? H.Stats.Max(string tag, int n)
-```
-
-### Average(tag, n)
-```csharp
-double? H.Stats.Average(string tag, int n)
+min(x) = en küçük değer (x₁, x₂, …, xₙ)
 ```
 
-### StdDev(tag, n)
-```csharp
-double? H.Stats.StdDev(string tag, int n)
+## Max(tag, n)
+```
+max(x) = en büyük değer (x₁, x₂, …, xₙ)
 ```
 
-### Range(tag, n)
-```csharp
-double? H.Stats.Range(string tag, int n)
+## Average(tag, n)
+```
+μ = (x₁ + x₂ + … + xₙ) / n
 ```
 
-## 2. Konum Ölçüleri
-### Median(tag, n)
-```csharp
-double? H.Stats.Median(string tag, int n)
+## StdDev(tag, n)
+Popülasyon standart sapması:
+```
+σ = √( ((x₁−μ)² + (x₂−μ)² + … + (xₙ−μ)²) / n )
 ```
 
-### Percentile(tag, n, p)
-```csharp
-double? H.Stats.Percentile(string tag, int n, double p)
+## Range(tag, n)
+```
+range = max(x) − min(x)
 ```
 
-### MedianAbsoluteDeviation(tag, n)
-```csharp
-double? H.Stats.MedianAbsoluteDeviation(string tag, int n)
+---
+
+# 2) Konum Ölçüleri
+
+## Median(tag, n)
+```
+Tek n:   median = x₍ₙ₊₁₎∕₂
+Çift n:  median = (x₍ₙ∕₂₎ + x₍ₙ∕₂₊₁₎) / 2
 ```
 
-### PercentileRank(tag, n, value)
-```csharp
-double? H.Stats.PercentileRank(string tag, int n, double value)
+## Percentile(tag, n, p)
+Interpolasyonlu yüzdelik hesaplama:
+```
+rank = (p / 100) × (n − 1)
+frac = rank − floor(rank)
+
+percentile = x₍floor(rank)₎ × (1 − frac)
+            + x₍ceil(rank)₎  × frac
 ```
 
-## 3. Zaman Serisi Dönüşümleri – Skaler
-### Ewma(tag, n, alpha)
-```csharp
-double? H.Stats.Ewma(string tag, int n, double alpha = 0.3)
+## MedianAbsoluteDeviation(tag, n)
+```
+MAD = median( |xᵢ − median(x)| )
 ```
 
-### ZScore(tag, n)
-```csharp
-double? H.Stats.ZScore(string tag, int n)
+## PercentileRank(tag, n, value)
+```
+PercentileRank = 100 × ( count(xᵢ ≤ value) / n )
 ```
 
-### Diff(tag, n)
-```csharp
-double? H.Stats.Diff(string tag, int n)
+---
+
+# 3) Zaman Serisi – Skaler Fonksiyonlar
+
+## Ewma(tag, n, alpha)
+```
+EWMA₀ = x₀
+EWMAₜ = α·xₜ + (1−α)·EWMAₜ₋₁
 ```
 
-### Rate(tag, n, dt)
-```csharp
-double? H.Stats.Rate(string tag, int n, double sampleIntervalSec)
+## ZScore(tag, n)
+```
+Z = (xₗₐₛₜ − μ) / σ
 ```
 
-### MovingAverage(tag, n)
-```csharp
-double? H.Stats.MovingAverage(string tag, int n)
+## Diff(tag, n)
+```
+Δ = xₙ − x₁
 ```
 
-## 4. Zaman Serisi Dönüşümleri – Pencereli
-### LastNMovingAverage(tag, n, window)
-```csharp
-double?[] H.Stats.LastNMovingAverage(string tag, int n, int window)
+## Rate(tag, n, dt)
+```
+rate = (xₙ − x₁) / ((n − 1) × dt)
 ```
 
-### LastNZScores(tag, n)
-```csharp
-double?[] H.Stats.LastNZScores(string tag, int n)
+---
+
+# 4) Windowed Fonksiyonlar
+
+## LastNMovingAverage(tag, n, window)
+```
+MAₖ = (xₖ + xₖ₊₁ + … + xₖ₊₍w−1₎) / w
 ```
 
-## 5. Eşik Fonksiyonları
-### LastNExceedsThreshold
-```csharp
-bool H.Stats.LastNExceedsThreshold(string tag, int n, double lower, double upper)
+## LastNZScores(tag, n)
+```
+Zᵢ = (xᵢ − μ) / σ
 ```
 
-### LastValueExceedsThreshold
-```csharp
-bool H.Stats.LastValueExceedsThreshold(string tag, double lower, double upper)
+---
+
+# 5) Eşik Kontrolleri
+
+## LastNExceedsThreshold
+```
+Any value where (xᵢ < lowerLimit) OR (xᵢ > upperLimit)
 ```
 
-## 6. Trend ve Türevsel Fonksiyonlar
-### LastNTrendSlope
-```csharp
-double? H.Stats.LastNTrendSlope(string tag, int n)
+## LastValueExceedsThreshold
+```
+x_last < lowerLimit OR x_last > upperLimit
 ```
 
-### LastNAverageRateOfChange
-```csharp
-double? H.Stats.LastNAverageRateOfChange(string tag, int n)
+---
+
+# 6) Trend ve Türevsel Fonksiyonlar
+
+## LastNTrendSlope(tag, n)
+Basit lineer regresyon eğimi:
+```
+slope = ( n·Σ(xᵢ·yᵢ) − (Σxᵢ)(Σyᵢ) ) 
+        --------------------------------
+        ( n·Σ(xᵢ²) − (Σxᵢ)² )
 ```
 
-### LastNAverageAcceleration
-```csharp
-double? H.Stats.LastNAverageAcceleration(string tag, int n)
+## LastNAverageRateOfChange(tag, n)
+```
+ROC = ( (x₂−x₁) + (x₃−x₂) + … + (xₙ−x₍ₙ₋₁₎) ) / (n − 1)
 ```
 
-## 7. Korelasyon
-### Correlation
-```csharp
-double? H.Stats.Correlation(string tag1, string tag2, int n)
+## LastNAverageAcceleration(tag, n)
+```
+ACC = Σ( xᵢ₊₂ − 2·xᵢ₊₁ + xᵢ ) / (n − 2)
 ```
 
-## 8. LagCorrelation
-### LagCorrelation
-```csharp
-(int bestLag, double bestCorr)? H.Stats.LagCorrelation(string tag1, string tag2, int n, int maxLag = 10)
+---
+
+# 7) Korelasyon
+
+## Correlation(tag1, tag2, n)
+Pearson korelasyonu:
+```
+corr =   Σ( (xᵢ−μₓ)(yᵢ−μᵧ) )
+        ------------------------------------------
+        √(Σ(xᵢ−μₓ)²) × √(Σ(yᵢ−μᵧ)²)
 ```
 
-## 9. Lineer Regresyon
-### LinearRegressionXY
-```csharp
-(double slope, double intercept)? H.Stats.LinearRegressionXY(string tagX, string tagY, int n)
+---
+
+# 8) LagCorrelation
+
+```
+for lag ∈ [−maxLag … +maxLag]:
+    hizalanmış x ve y serileri için corr(lag) hesapla
+
+bestLag = argmax( |corr(lag)| )
 ```
 
-## 10. Alias Fonksiyonlar
-- LastNMax → Max
-- LastNMin → Min
-- LastNRange → Range
-- LastNMedian → Median
-- LastNDelta → Diff
-- LastNAverageDelta → LastNAverageRateOfChange
+---
+
+# 9) LinearRegressionXY(tagX, tagY)
+
+## Slope (Eğim)
+```
+slope = Σ( (xᵢ−μₓ)(yᵢ−μᵧ) )  /  Σ( (xᵢ−μₓ)² )
+```
+
+## Intercept (Kesişim)
+```
+intercept = μᵧ − slope × μₓ
+```
+
+---
+
+# 10) Alias Fonksiyonlar
+| Alias | Gerçek Fonksiyon |
+|-------|------------------|
+| LastNMax | Max |
+| LastNMin | Min |
+| LastNRange | Range |
+| LastNMedian | Median |
+| LastNDelta | Diff |
+| LastNAverageDelta | LastNAverageRateOfChange |
+
+---
+
+Bu doküman GitHub için %100 optimize edilmiştir.
