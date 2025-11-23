@@ -1,23 +1,8 @@
 
-# MlHelper – Detaylı API Dokümantasyonu
-Script tarafında **H.ML.\*** olarak kullanılabilir.
+# 🧩 ScriptHelpers (`H.ML`)
 
 ---
 
-# 📌 İçindekiler
-1. [Genel Bilgi](#genel-bilgi)
-2. [Feature Helpers](#feature-helpers)
-3. [Doğrusal Regresyon](#doğrusal-regresyon)
-4. [K‑Means (1D)](#kmeans-1d)
-5. [Anomali Algoritmaları (Z‑Score / IQR / EWMA)](#anomali-algoritmaları)
-6. [ONNX Tahmin Fonksiyonları](#onnx-tahmin)
-7. [Isolation Forest / One‑Class SVM Yardımcıları](#onnx-anomali-helpers)
-8. [ML.NET PCA Eğitimi ve Skorlama](#mlnet-pca)
-9. [Zaman Serisi – Spike & ChangePoint](#spike-changepoint)
-10. [64 Boyutlu Feature Vektörü](#feature64)
-11. [64D → ONNX Tahmini](#feature64-onnx)
-
----
 
 # Genel Bilgi
 **MlHelper**, script kurallarında kullanılmak üzere çeşitli makine öğrenmesi işlemlerini kolaylaştırır:
