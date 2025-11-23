@@ -1,184 +1,320 @@
 
-# H.Stats Dokümantasyonu (Unicode Matematik – GitHub Uyumlu)
+# H.Stats Dokümantasyonu  
+(Tam Açıklamalı + GitHub LaTeX Uyumlu)
 
-Bu dokümantasyon, tüm matematiksel formüller **Unicode** kullanılarak yazılmıştır.  
-LaTeX, HTML veya MathJax içermez — GitHub Markdown görüntüleyicisinde **%100 doğru görünür**.
-
----
-
-# 1) Temel İstatistik Fonksiyonları
-
-## Min(tag, n)
-```
-min(x) = en küçük değer (x₁, x₂, …, xₙ)
-```
-
-## Max(tag, n)
-```
-max(x) = en büyük değer (x₁, x₂, …, xₙ)
-```
-
-## Average(tag, n)
-```
-μ = (x₁ + x₂ + … + xₙ) / n
-```
-
-## StdDev(tag, n)
-Popülasyon standart sapması:
-```
-σ = √( ((x₁−μ)² + (x₂−μ)² + … + (xₙ−μ)²) / n )
-```
-
-## Range(tag, n)
-```
-range = max(x) − min(x)
-```
+Bu dokümantasyon, `H.Stats` altındaki tüm fonksiyonları **detaylı açıklama**, **kullanım amacı** ve **LaTeX formatlı matematiksel formüller** ile açıklar.  
+Formüller GitHub’ın KaTeX desteği ile **doğrudan görüntülenebilir**.
 
 ---
 
-# 2) Konum Ölçüleri
+# 📌 1. Temel İstatistik Fonksiyonları
 
-## Median(tag, n)
-```
-Tek n:   median = x₍ₙ₊₁₎∕₂
-Çift n:  median = (x₍ₙ∕₂₎ + x₍ₙ∕₂₊₁₎) / 2
-```
+---
 
-## Percentile(tag, n, p)
-Interpolasyonlu yüzdelik hesaplama:
-```
-rank = (p / 100) × (n − 1)
-frac = rank − floor(rank)
+## 🔹 **H.Stats.Min(tag, n)**  
+**Açıklama:**  
+Son *n* değerden **minimum** olanı döndürür.
 
-percentile = x₍floor(rank)₎ × (1 − frac)
-            + x₍ceil(rank)₎  × frac
-```
+$$
+\min(x) = \min(x_1, x_2, \ldots, x_n)
+$$
 
-## MedianAbsoluteDeviation(tag, n)
-```
-MAD = median( |xᵢ − median(x)| )
-```
+---
 
-## PercentileRank(tag, n, value)
+## 🔹 **H.Stats.Max(tag, n)**  
+**Açıklama:**  
+Son *n* değerden **maksimum** olanı döndürür.
+
+$$
+\max(x) = \max(x_1, x_2, \ldots, x_n)
+$$
+
+---
+
+## 🔹 **H.Stats.Average(tag, n)**  
+**Açıklama:**  
+Son *n* değerin aritmetik ortalamasını hesaplar.
+
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+
+---
+
+## 🔹 **H.Stats.StdDev(tag, n)**  
+**Açıklama:**  
+Popülasyon standart sapması (variance / n).
+
+$$
+\sigma = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2 }
+$$
+
+---
+
+## 🔹 **H.Stats.Range(tag, n)**  
+**Açıklama:**  
+Son *n* değerin aralığı (maksimum – minimum).
+
+$$
+Range = \max(x) - \min(x)
+$$
+
+---
+
+# 📌 2. Konum (Location) Ölçüleri
+
+---
+
+## 🔹 **H.Stats.Median(tag, n)**  
+**Açıklama:**  
+Orta değer — veri sıralandığında ortadaki değer.
+
+Tek n:
+$$
+Median = x_{\frac{n+1}{2}}
+$$
+
+Çift n:
+$$
+Median = \frac{x_{\frac{n}{2}} + x_{\frac{n}{2}+1}}{2}
+$$
+
+---
+
+## 🔹 **H.Stats.Percentile(tag, n, p)**  
+**Açıklama:**  
+0–100 arasındaki p yüzdelik dilimi.
+
+Hesap:
+$$
+rank = \frac{p}{100}(n-1)
+$$
+
+Interpolasyon:
+$$
+Percentile(p) = x_{\lfloor rank \rfloor}(1 - frac) + x_{\lceil rank \rceil}(frac)
+$$
+
+---
+
+## 🔹 **H.Stats.MedianAbsoluteDeviation(tag, n)**  
+**Açıklama:**  
+Sağlam sapma ölçüsü (outlier’lara dayanıklı).
+
+$$
+MAD = Median(|x_i - Median(x)|)
+$$
+
+---
+
+## 🔹 **H.Stats.PercentileRank(tag, n, value)**  
+**Açıklama:**  
+Bir değerin son n içindeki yüzdelik derecesi.
+
+$$
+PR = 100 \cdot \frac{\#(x_i \le value)}{n}
+$$
+
+---
+
+# 📌 3. Zaman Serisi – Skaler Dönüşümler
+
+---
+
+## 🔹 **H.Stats.Ewma(tag, n, alpha)**  
+**Açıklama:**  
+Üssel ağırlıklı hareketli ortalama.
+
+$$
+EWMA_0 = x_0
+$$
+
+$$
+EWMA_t = \alpha x_t + (1 - \alpha) EWMA_{t-1}
+$$
+
+---
+
+## 🔹 **H.Stats.ZScore(tag, n)**  
+**Açıklama:**  
+Son değerin standart skoru (anomaliler için ideal).
+
+$$
+Z = \frac{x_{last} - \bar{x}}{\sigma}
+$$
+
+---
+
+## 🔹 **H.Stats.Diff(tag, n)**  
+**Açıklama:**  
+İlk ve son değer farkı.
+
+$$
+\Delta = x_n - x_1
+$$
+
+---
+
+## 🔹 **H.Stats.Rate(tag, n, dt)**  
+**Açıklama:**  
+Yaklaşık türev (değişim hızı).
+
+$$
+Rate = \frac{x_n - x_1}{(n-1)\cdot dt}
+$$
+
+---
+
+# 📌 4. Zaman Serisi – Pencereli Dönüşümler
+
+---
+
+## 🔹 **H.Stats.LastNMovingAverage(tag, n, window)**  
+**Açıklama:**  
+Kaydırmalı pencere hareketli ortalama.
+
+$$
+MA_k = \frac{1}{w} \sum_{i=k}^{k+w-1} x_i
+$$
+
+---
+
+## 🔹 **H.Stats.LastNZScores(tag, n)**  
+**Açıklama:**  
+Tüm değerlerin z-skorlarını döndürür.
+
+$$
+Z_i = \frac{x_i - \bar{x}}{\sigma}
+$$
+
+---
+
+# 📌 5. Eşik Kontrolleri
+
+---
+
+## 🔹 **H.Stats.LastNExceedsThreshold(tag, n, lower, upper)**  
+**Açıklama:**  
+Son *n* içinde limit aşımı var mı?
+
 ```
-PercentileRank = 100 × ( count(xᵢ ≤ value) / n )
+return (xᵢ < lower) OR (xᵢ > upper)
 ```
 
 ---
 
-# 3) Zaman Serisi – Skaler Fonksiyonlar
+## 🔹 **H.Stats.LastValueExceedsThreshold(tag, lower, upper)**  
+**Açıklama:**  
+En son değer limit dışında mı?
 
-## Ewma(tag, n, alpha)
 ```
-EWMA₀ = x₀
-EWMAₜ = α·xₜ + (1−α)·EWMAₜ₋₁
-```
-
-## ZScore(tag, n)
-```
-Z = (xₗₐₛₜ − μ) / σ
-```
-
-## Diff(tag, n)
-```
-Δ = xₙ − x₁
-```
-
-## Rate(tag, n, dt)
-```
-rate = (xₙ − x₁) / ((n − 1) × dt)
+x_last < lower OR x_last > upper
 ```
 
 ---
 
-# 4) Windowed Fonksiyonlar
-
-## LastNMovingAverage(tag, n, window)
-```
-MAₖ = (xₖ + xₖ₊₁ + … + xₖ₊₍w−1₎) / w
-```
-
-## LastNZScores(tag, n)
-```
-Zᵢ = (xᵢ − μ) / σ
-```
+# 📌 6. Trend ve Türevsel Ölçüler
 
 ---
 
-# 5) Eşik Kontrolleri
+## 🔹 **H.Stats.LastNTrendSlope(tag, n)**  
+**Açıklama:**  
+Basit lineer regresyon eğimi.
 
-## LastNExceedsThreshold
-```
-Any value where (xᵢ < lowerLimit) OR (xᵢ > upperLimit)
-```
-
-## LastValueExceedsThreshold
-```
-x_last < lowerLimit OR x_last > upperLimit
-```
-
----
-
-# 6) Trend ve Türevsel Fonksiyonlar
-
-## LastNTrendSlope(tag, n)
-Basit lineer regresyon eğimi:
-```
-slope = ( n·Σ(xᵢ·yᵢ) − (Σxᵢ)(Σyᵢ) ) 
-        --------------------------------
-        ( n·Σ(xᵢ²) − (Σxᵢ)² )
-```
-
-## LastNAverageRateOfChange(tag, n)
-```
-ROC = ( (x₂−x₁) + (x₃−x₂) + … + (xₙ−x₍ₙ₋₁₎) ) / (n − 1)
-```
-
-## LastNAverageAcceleration(tag, n)
-```
-ACC = Σ( xᵢ₊₂ − 2·xᵢ₊₁ + xᵢ ) / (n − 2)
-```
+$$
+slope =
+\frac{
+n\sum(x_i y_i) - (\sum x_i)(\sum y_i)
+}{
+n\sum(x_i^2) - (\sum x_i)^2
+}
+$$
 
 ---
 
-# 7) Korelasyon
+## 🔹 **H.Stats.LastNAverageRateOfChange(tag, n)**  
+**Açıklama:**  
+Ardışık farkların ortalaması.
 
-## Correlation(tag1, tag2, n)
-Pearson korelasyonu:
-```
-corr =   Σ( (xᵢ−μₓ)(yᵢ−μᵧ) )
-        ------------------------------------------
-        √(Σ(xᵢ−μₓ)²) × √(Σ(yᵢ−μᵧ)²)
-```
+$$
+ROC = \frac{ \sum_{i=2}^{n} (x_i - x_{i-1}) }{ n-1 }
+$$
 
 ---
 
-# 8) LagCorrelation
+## 🔹 **H.Stats.LastNAverageAcceleration(tag, n)**  
+**Açıklama:**  
+İkinci türev benzeri ivme.
 
-```
-for lag ∈ [−maxLag … +maxLag]:
-    hizalanmış x ve y serileri için corr(lag) hesapla
-
-bestLag = argmax( |corr(lag)| )
-```
-
----
-
-# 9) LinearRegressionXY(tagX, tagY)
-
-## Slope (Eğim)
-```
-slope = Σ( (xᵢ−μₓ)(yᵢ−μᵧ) )  /  Σ( (xᵢ−μₓ)² )
-```
-
-## Intercept (Kesişim)
-```
-intercept = μᵧ − slope × μₓ
-```
+$$
+ACC = \frac{
+\sum_{i=1}^{n-2}
+(x_{i+2} - 2x_{i+1} + x_i)
+}{ n-2 }
+$$
 
 ---
 
-# 10) Alias Fonksiyonlar
+# 📌 7. İki Değişkenli Korelasyon
+
+---
+
+## 🔹 **H.Stats.Correlation(tag1, tag2, n)**  
+**Açıklama:**  
+Pearson korelasyonu (−1 ile +1 arasında).
+
+$$
+corr =
+\frac{
+\sum (x_i - \bar{x})(y_i - \bar{y})
+}{
+\sqrt{\sum(x_i - \bar{x})^2} \cdot
+\sqrt{\sum(y_i - \bar{y})^2}
+}
+$$
+
+---
+
+# 📌 8. Lag Correlation (Zaman Gecikmesi Analizi)
+
+---
+
+## 🔹 **H.Stats.LagCorrelation(tag1, tag2, n, maxLag)**  
+**Açıklama:**  
+İki sinyal arasında en iyi gecikmeyi bulur.
+
+$$
+bestLag = \arg\max_{lag \in [-L..L]} |corr(lag)|
+$$
+
+---
+
+# 📌 9. X → Y Doğrusal Regresyon
+
+---
+
+## 🔹 **H.Stats.LinearRegressionXY(tagX, tagY, n)**  
+Eğim (Slope):
+
+$$
+slope =
+\frac{
+\sum (x_i - \mu_x)(y_i - \mu_y)
+}{
+\sum (x_i - \mu_x)^2
+}
+$$
+
+Kesişim (Intercept):
+
+$$
+intercept = \mu_y - slope \cdot \mu_x
+$$
+
+---
+
+# 📌 10. Alias Fonksiyonlar  
+
 | Alias | Gerçek Fonksiyon |
 |-------|------------------|
 | LastNMax | Max |
@@ -190,4 +326,4 @@ intercept = μᵧ − slope × μₓ
 
 ---
 
-Bu doküman GitHub için %100 optimize edilmiştir.
+Bu dosya GitHub üzerinde **LaTeX olarak %100 render edilir.**
