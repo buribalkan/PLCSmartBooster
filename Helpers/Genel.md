@@ -149,6 +149,9 @@ double std = Math.Sqrt(sumSq / values.Length);
 
 # 2. Durum ve Sebep Fonksiyonları
 
+> Reason, Hit ve Fail fonksiyonları; script içinde belirlenen kuralların, koşulların veya tetikleyicilerin neden gerçekleştiğini kullanıcıya bildirmek amacıyla tasarlanmış temel log fonksiyonlarıdır. Tanımlanan kuralların (sıcaklık 30 dereceyi geçiyor mu? Geçerse bildir) gerçekleşme durumunda kullanıcıya log oluşturarak bilgi verilmesi sağlanır. Üç fonksiyonda benzer şekilde kullanılır. H.Hit, Rule Hit (Tanımlanan durum gerçekleşti) mantığına uygun olduğu için kullanılması önerilen fonksiyondur.
+
+
 ```csharp
 public void Reason(string text)
 public bool Hit(string text)
@@ -166,7 +169,7 @@ public void Reason(string text)
 ```
 #### ✅ Örnek Kullanım
 ```csharp
-H.Reason("RSI aşırı satım bölgesinde");
+H.Reason("Motor akımı artmasına rağmen Tork değişmiyor.");
 ```
 ### 📌 Hit(text) → bool
 ```csharp
@@ -179,8 +182,8 @@ public bool Hit(string text)
 ```
 #### ✅ Örnek Kullanım
 ```csharp
-if (rsi < 30)
-    return H.Hit("RSI < 30");
+if (process.Value < 30)
+    return H.Hit($"Process value: {process.Value}, 30 altında");
 ```
 ### 📌 Fail(text) → bool
 ```csharp
@@ -196,6 +199,11 @@ public bool Fail(string? text = null)
 if (volume < 1000)
     return H.Fail("Hacim yetersiz");
 ```
+
+> Aşağıda 3 sensör verisine abone (subscribe) olunduğu ve yalnızca MAIN_Simu.bPlasticAtWork (**H.Like(Event.Address, "MAIN_Simu.b*Sensor")**) sensöründen gelen verilerin dikkate alındığı bir durum verilmiştir. Buradaki kural tanımı nedeni ile, sadece tag adresinin ve tag değerinin log edilmesine neden olur. **Event.Address**, **Event.Value** her veri değişiminden sonra gelen değerlerdir. Bir kaç değer aboneliği varsa, filtrelenerek istenen tagin değeri üzerinde işlem yapılır.
+<img width="978" height="591" alt="image" src="https://github.com/user-attachments/assets/0db7627a-22df-46ca-bb9a-7ff3e9fb330c" />
+
+
 
 
 
