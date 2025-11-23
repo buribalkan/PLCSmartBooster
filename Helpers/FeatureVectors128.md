@@ -646,55 +646,60 @@ Spektral Düzlük (Spectral Flatness)
 ### 💊 Proses Yorumu:
 1’e yakın → beyaz gürültü gibi; ton yok → mekanik bozukluk, sürtünme, dağınık titreşim 
 0’a yakın → belirgin tonlar → fan, motor, rulman karakteristik frekansları 
-> ## 📌 fv[100] = crest 
-Crest Factor (Peak / RMS) 
+> ## 📌 fv[100] = crest
+### Tanım: 
+> Crest Factor (Peak / RMS) 
 ### 💊 Proses Yorumu:
-Yüksek crest → kısa süreli darbeler, çarpma, rulman bozukluğu 
-Düşük crest → pürüzsüz çalışma 
-Bu arıza tespitinde çok kritik bir metriktir. 
-> ## 📌 fv[101]–> ## 📌 fv[108] = bandEnergy[0..7] 
-8 Bantlık Enerji Dağılımı 
-Tipik olarak bantlar: 
-0: DC – düşük frekans 
-1–3: düşük/orta titreşim 
-4–7: yüksek frekans, harmonikler, rulman hasar frekansları 
+- ✔ **Yüksek crest → kısa süreli darbeler, çarpma, rulman bozukluğu** 
+- ✔ **Düşük crest → pürüzsüz çalışma** 
+- ✔ **Bu arıza tespitinde çok kritik bir metriktir** 
+> ## 📌 fv[101]–> ## 📌 fv[108] = bandEnergy[0..7]
+### Tanım:
+> 8 Bantlık Enerji Dağılımı
+### 💊 Proses Yorumu:
+- ✔ **Tipik olarak bantlar:** 
+- ✔ **0: DC – düşük frekans** 
+- ✔ **1–3: düşük/orta titreşim** 
+- ✔ **4–7: yüksek frekans, harmonikler, rulman hasar frekansları** 
 ### 💊 Proses Yorumu:
 Düşük bantlar ↑ → yük salınımı, PID osilasyonu 
 Orta bantlar ↑ → rezonans, mekanik dengesizlik 
 Yüksek bantlar ↑ → rulman iç/orta/dış bilezik hasarı, sürtünme, gövde rezonansı 
 Bu dağılım bir çeşit “frekans fingerprint” oluşturur. 
 > ## 📌 fv[109] = domFreq 
-Baskın Frekans (Dominant Frequency) 
-Sinyalde en yüksek enerjiyi taşıyan frekans. 
+### Tanım:
+> Baskın Frekans (Dominant Frequency): Sinyalde en yüksek enerjiyi taşıyan frekans. 
 ### 💊 Proses Yorumu:
-Motor hızına yakın → normal 
-2×, 3× harmonikler → dengesizlik 
-Yüksek frekanslarda ani kayma → anomali 
-Bu tek başına çok güçlü bir arıza belirtecidir. 
-> ## 📌 fv[110] = sqrt(domMag) 
-Baskın Frekansın Kök-Enerjisi 
-Baskın frekans büyüklüğünü normalize eder. 
+- ✔ **Motor hızına yakın → normal**
+- ✔ **2×, 3× harmonikler → dengesizlik** 
+- ✔ **Yüksek frekanslarda ani kayma → anomali** 
+- ✔ **Tek başına çok güçlü bir arıza belirtecidir.** 
+> ## 📌 fv[110] = sqrt(domMag)
+### Tanım:
+> Baskın Frekansın Kök-Enerjisi: Baskın frekans büyüklüğünü normalize eder. 
 ### 💊 Proses Yorumu:
-Artışı → domFreq enerjisi yükseliyor (özellikle rulman problemlerinde kritik) 
+- ✔ **Artışı → domFreq enerjisi yükseliyor (özellikle rulman problemlerinde kritik)** 
 > ## 📌 fv[111] = secondFreq 
-İkinci Baskın Frekans 
-İlk dominanta ek olarak 2. büyük pik. 
+### Tanım:
+> İkinci Baskın Frekans: İlk dominanta ek olarak 2. büyük pik. 
 ### 💊 Proses Yorumu:
-Harmonik çiftler → rezonans modları 
-İkinci frekansta yükseliş → mekanik arızalarda genelde birlikte büyür 
+- ✔ **Harmonik çiftler → rezonans modları** 
+- ✔ **İkinci frekansta yükseliş → mekanik arızalarda genelde birlikte büyür** 
 > ## 📌 fv[112] = harmonicity 
-Harmonik Üst-Alt Uyum Ölçüsü 
-Enerji harmonik frekanslarda mı yoğunlaşıyor? 
+### Tanım:
+> Harmonik Üst-Alt Uyum Ölçüsü: Enerji harmonik frekanslarda mı yoğunlaşıyor? 
 ### 💊 Proses Yorumu:
-Yüksek → sistem harmonik olarak çalışıyor (motor/generator normal) 
-Düşük → enerjinin harmonik yapısı bozulmuş → arıza işareti 
-> ## 📌 fv[113] = lowRatio 
-Düşük Bant Enerjisi / Toplam Enerji 
-Düşük frekans oranı. 
-Genellikle yük salınımları veya yavaş osilasyonları gösterir. 
+- ✔ **Yüksek → sistem harmonik olarak çalışıyor (motor/generator normal)** 
+- ✔ **Düşük → enerjinin harmonik yapısı bozulmuş → arıza işareti** 
+> ## 📌 fv[113] = lowRatio
+### Tanım:
+> Düşük Bant Enerjisi / Toplam Enerji: Düşük frekans oranı.
+### 💊 Proses Yorumu: 
+- ✔ **Genellikle yük salınımları veya yavaş osilasyonları gösterir.** 
 > ## 📌 fv[114] = midRatio
 ### Tanım:
-> Orta Bant Enerjisi / Toplam Enerji 
+> Orta Bant Enerjisi / Toplam Enerji
+### 💊 Proses Yorumu:
 - ✔ **Orta frekansta enerji yoğunlaşması genelde:** 
 - ✔ **Rezonans** 
 - ✔ **Mil hizalama bozukluğu** 
