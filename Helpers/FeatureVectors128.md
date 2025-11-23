@@ -325,15 +325,15 @@ PLC sinyali için → “ani değişimlerin keskinliği”.
 ### 💊 Proses Yorumu: (🚨 çok önemli): 
 - ✔ **1 → tamamen stabil, düzgün, dalgalanma düşük** 
 - ✔ **0 → çok düzensiz, gürültülü, kontrolsüz** 
-> StabilityScore genellikle şunları içerir: 
-- düşük varyans 
-- düşük diffStd / diffRms 
-- düşük jerk 
-- yüksek r2 (trend düzgün ise) 
-- düşük peak-to-peak 
-- düşük entropy 
-- ✔ **Bu metrik “bir bakışta stabilite ölçümü” sağlar. 
-- ✔ **Makine durumu, proses kararlılığı, PID tuning kalitesi gibi alanlarda çok değerlidir. 
+- ✔ **StabilityScore genellikle şunları içerir:** 
+- ✔ **düşük varyans** 
+- ✔ **düşük diffStd / diffRms** 
+- ✔ **düşük jerk** 
+- ✔ **yüksek r2 (trend düzgün ise)** 
+- ✔ **düşük peak-to-peak** 
+- ✔ **düşük entropy** 
+- ✔ **Bu metrik “bir bakışta stabilite ölçümü” sağlar.** 
+- ✔ **Makine durumu, proses kararlılığı, PID tuning kalitesi gibi alanlarda çok değerlidir.** 
 > ## 📌 fv[48] — emaSlow[n-1] (Yavaş EMA Son Değer) 
 ### Tanım: 
 > Uzun periyotlu EMA’nın en son hesaplanan değeri. 
@@ -367,7 +367,8 @@ Artık = (sinyal – emaSlow)
 - 📢 PID parametreleri yetersiz 
 - 📢 Mekanik çalkantı olabilir 
 > ## 📌 fv[52] — resFastMean (Fast EMA Artık Ortalaması) 
-### Tanım: Hızlı trendden (emaFast) sapmanın ortalaması. 
+### Tanım: 
+> Hızlı trendden (emaFast) sapmanın ortalaması. 
 ### 💊 Proses Yorumu:
 - ✔ **Daha lokal bias gösterir.** 
 - ✔ **Sensör kısa süreli kayma yapmış mı?** 
@@ -398,191 +399,191 @@ Artık = (sinyal – emaSlow)
 ### Tanım: 
 > Spike = |resSlow| > threshold 
 ### 💊 Proses Yorumu:
-- ✔ **Uzun vadeli beklentiye göre anormal yükselmeler/düşüşler 
-- ✔ **Proses anlık şoklara maruz kalıyor olabilir: 
-- ✔ **tork darbesi 
-- ✔ **basınç reseti 
-- ✔ **akım sıçraması 
-- ✔ **ani ısı değişimi 
+- ✔ **Uzun vadeli beklentiye göre anormal yükselmeler/düşüşler** 
+- ✔ **Proses anlık şoklara maruz kalıyor olabilir:** 
+- ✔ **tork darbesi** 
+- ✔ **basınç reseti** 
+- ✔ **akım sıçraması** 
+- ✔ **ani ısı değişimi** 
 > ## 📌 fv[57] — fastSpikeCount (Fast EMA’ya Göre Spike Sayısı) 
-### Tanım: Daha kısa vadeli spike sayısı. 
+### Tanım: 
+> Daha kısa vadeli spike sayısı. 
 ### 💊 Proses Yorumu:
-- ✔ **Yüksek frekanslı anomali tespiti 
-- ✔ **Vibrasyon pikleri 
-- ✔ **Sensör jitter 
-- ✔ **Gürültü altında çalışan sistemlerde hızlı spike sayısı kritik. 
+- ✔ **Yüksek frekanslı anomali tespiti** 
+- ✔ **Vibrasyon pikleri** 
+- ✔ **Sensör jitter** 
+- ✔ **Gürültü altında çalışan sistemlerde hızlı spike sayısı kritik.** 
 > ## 📌 fv[58] — slowSpikeRate (Spike / n) 
-### Tanım: Uzun vadeli anomali oranı. 
+### Tanım: 
+> Uzun vadeli anomali oranı. 
 ### 💊 Proses Yorumu:
-- ✔ **Makinenin genel stabilite ölçüsü 
-- ✔ **Sürekli slow spike oluşması → proses çok dalgalı veya mekanik parça gevşek. 
+- ✔ **Makinenin genel stabilite ölçüsü** 
+- ✔ **Sürekli slow spike oluşması → proses çok dalgalı veya mekanik parça gevşek.** 
 > ## 📌 fv[59] — fastSpikeRate (Fast Spike / n) 
-### Tanım: Kısa vadeli anomali frekansı. 
+### Tanım: 
+> Kısa vadeli anomali frekansı. 
 ### 💊 Proses Yorumu:
-- ✔ **Yüksek fastSpikeRate → 
-- ✔ **vibrasyon artışı 
-- ✔ **sensör gürültüsü 
-- ✔ **PID high-frequency osilasyon 
-- ✔ **bearing/dişli bozulmalarına işaret edebilir. 
+- ✔ **Yüksek fastSpikeRate →** 
+- ✔ **vibrasyon artışı** 
+- ✔ **sensör gürültüsü** 
+- ✔ **PID high-frequency osilasyon** 
+- ✔ **bearing/dişli bozulmalarına işaret edebilir.** 
 > ## 📌 fv[60] — lastValue (Son Örnek) 
 ### 💊 Proses Yorumu:
-- ✔ **Anlık değer. 
-- ✔ **Trend karşılaştırmalarında referans alınır. 
-- ✔ **Model son anda sinyalin nereye geldiğini bilmezse yorum hatalı olabilir. Bu yüzden çok önemli. 
+- ✔ **Anlık değer.** 
+- ✔ **Trend karşılaştırmalarında referans alınır.** 
+- ✔ **Model son anda sinyalin nereye geldiğini bilmezse yorum hatalı olabilir. Bu yüzden çok önemli.** 
 > ## 📌 fv[61] — firstValue (İlk Örnek) 
 ### 💊 Proses Yorumu:
-- ✔ **Pencere başındaki sistem durumunu gösterir. 
-- ✔ **last - first ile bölgedeki değişimin net yönü alınır. 
+- ✔ **Pencere başındaki sistem durumunu gösterir.** 
+- ✔ **last - first ile bölgedeki değişimin net yönü alınır.** 
 > ## 📌 fv[62] — lastMinusFirst (Toplam Değişim) 
-### Tanım: Sinyalin pencere boyunca yaptığı net hareket. 
+### Tanım: 
+> Sinyalin pencere boyunca yaptığı net hareket. 
 ### 💊 Proses Yorumu:
-- ✔ **Pozitif → süreç yükselmiş 
-- ✔ **Negatif → süreç azalmış 
-- ✔ **Sıcaklık/akım/başınç drift tespitinde çok kritik. 
+- ✔ **Pozitif → süreç yükselmiş** 
+- ✔ **Negatif → süreç azalmış** 
+- ✔ **Sıcaklık/akım/başınç drift tespitinde çok kritik.** 
 > ## 📌 fv[63] — emaSlowMinusMean (Slow EMA – Basit Ortalama Farkı) 
-### Tanım: EMA uzun trendi ile pencerenin ortalama değeri arasındaki fark. 
-### 💊 Proses Yorumu:
-- ✔ **Eğer emaSlow > mean → sinyal yukarı doğru ivmeleniyor. 
-- ✔ **emaSlow < mean → sinyal aşağı yönlü. 
-- ✔ **“EMA → adaptif ortalama” ile “mean → statik ortalama” farkı makinenin trend hızını gösterir. 
-- ✔ **Segment Yapısı 
-n örneklik pencere şu şekilde 4’e bölünüyor: 
-Segment 0: Başlangıç kısmı (0–25%) 
-Segment 1: Erken orta bölüm (25–50%) 
-Segment 2: Geç orta bölüm (50–75%) 
-Segment 3: Son bölüm (75–100%) 
-Her segment için mean, std, slope ve RMS çıkarılıyor. 
-Bu yapılar özellikle trend değişikliği, geçişler, süreç stabilitesi ve anlık olay tespiti için son derece güçlüdür. 
-> ## 📌 fv[64–67] = segMeans[0–3] 
-Segment Ortalama Değerleri 
 ### Tanım: 
-Her alt segmentin ortalama değeri. 
+> EMA uzun trendi ile pencerenin ortalama değeri arasındaki fark. 
 ### 💊 Proses Yorumu:
-Bu değerler sinyalin zaman içinde nasıl kaydığını anlamayı sağlar. 
-Örnek yorumlamalar: 
-segMean[0] < segMean[3] → süreç yükseliyor (ısı artıyor, akım yükseliyor) 
-segMean[0] > segMean[3] → süreç düşüyor 
-segmentler arası ani sıçramalar → proses içinde geçiş/bozulma/ayar değişimi 
-Segment ortalamalarının çok farklı olması → proses sabit değil, değişken. 
-Özellikle: 
-Motor akımında segment 3 çok yüksek → son kısımda yük artmış 
-Basınç segment 0–1 düşük, 2–3 yüksek → valf geç açılıyor olabilir 
-Sıcaklık segment 0 → soğuk, segment 3 → ısınma eğilimi 
+- ✔ **Eğer emaSlow > mean → sinyal yukarı doğru ivmeleniyor.** 
+- ✔ **emaSlow < mean → sinyal aşağı yönlü.** 
+- ✔ **“EMA → adaptif ortalama” ile “mean → statik ortalama” farkı makinenin trend hızını gösterir.** 
+- ✔ **Segment Yapısı** 
+- ✔ **n örneklik pencere şu şekilde 4’e bölünüyor:** 
+- ✔ **Segment 0: Başlangıç kısmı (0–25%)** 
+- ✔ **Segment 1: Erken orta bölüm (25–50%)** 
+- ✔ **Segment 2: Geç orta bölüm (50–75%)** 
+- ✔ **Segment 3: Son bölüm (75–100%)** 
+- ✔ **Her segment için mean, std, slope ve RMS çıkarılıyor.** 
+- ✔ **Bu yapılar özellikle trend değişikliği, geçişler, süreç stabilitesi ve anlık olay tespiti için son derece güçlüdür.** 
+> ## 📌 fv[64–67] = segMeans[0–3]  
+### Tanım: 
+> Segment Ortalama Değerleri: Her alt segmentin ortalama değeri. 
+### 💊 Proses Yorumu:
+- ✔ **Bu değerler sinyalin zaman içinde nasıl kaydığını anlamayı sağlar.** 
+- ✔ **Örnek yorumlamalar:** 
+- ✔ **segMean[0] < segMean[3] → süreç yükseliyor (ısı artıyor, akım yükseliyor)** 
+- ✔ **segMean[0] > segMean[3] → süreç düşüyor** 
+- ✔ **segmentler arası ani sıçramalar → proses içinde geçiş/bozulma/ayar değişimi** 
+- ✔ **Segment ortalamalarının çok farklı olması → proses sabit değil, değişken.** 
+- ✔ **Özellikle:** 
+- ✔ **Motor akımında segment 3 çok yüksek → son kısımda yük artmış** 
+- ✔ **Basınç segment 0–1 düşük, 2–3 yüksek → valf geç açılıyor olabilir** 
+- ✔ **Sıcaklık segment 0 → soğuk, segment 3 → ısınma eğilimi** 
 > ## 📌 fv[68–71] = segStds[0–3] 
-Segment Standart Sapmaları (Oynaklık) 
 ### Tanım: 
-Her segmentte sinyal ne kadar dalgalı. 
+> Segment Standart Sapmaları (Oynaklık): Her segmentte sinyal ne kadar dalgalı. 
 ### 💊 Proses Yorumu:
-segStd düşük → segment stabil 
-segStd yüksek → segmentte gürültü, titreşim, dengesizlik, PID çalkantısı 
-Seg1 düşük, Seg2 yüksek → süreç bu bölgede bozulmaya başlıyor 
-Uygulama örnekleri: 
-Motor akımı: son segmentte yüksek std → mekanik sürtünme artmaya başlıyor 
-Basınç: segment 2–3 std yükseliyor → valf açıldığında sistem kontrolsüz 
-Segment STD özellikle “lokal arıza başlangıcı” tespitinde çok güçlüdür. 
-> ## 📌 fv[72–75] = segSlopes[0–3] 
-Segment Trend Eğimi (Slope) 
+- ✔ **segStd düşük → segment stabil** 
+- ✔ **segStd yüksek → segmentte gürültü, titreşim, dengesizlik, PID çalkantısı** 
+- ✔ **Seg1 düşük, Seg2 yüksek → süreç bu bölgede bozulmaya başlıyor** 
+- ✔ **Uygulama örnekleri:** 
+- ✔ **Motor akımı: son segmentte yüksek std → mekanik sürtünme artmaya başlıyor** 
+- ✔ **Basınç: segment 2–3 std yükseliyor → valf açıldığında sistem kontrolsüz** 
+- ✔ **Segment STD özellikle “lokal arıza başlangıcı” tespitinde çok güçlüdür.** 
+> ## 📌 fv[72–75] = segSlopes[0–3]  
 ### Tanım: 
-Her segmentte lineer fit eğimi. 
+> Segment Trend Eğimi (Slope): Her segmentte lineer fit eğimi. 
 ### 💊 Proses Yorumu:
-Pozitif slope → segmentte yükselen trend 
-Negatif slope → segmentte düşen trend 
-0’a yakın → sabit bölüm 
-Özellikler: 
-segSlope[0] ≈ 0, segSlope[3] >> 0 → pencere sonunda ani yükseliş 
-segSlope sıfırdan sıfıra kayıyor → süreç kademeli şekilde düzleşiyor 
-Segment 1 veya 2’de anomali → proses ortasında bozulma var 
-Uygulama örnekleri: 
-Sıcaklık son segment slope > 0 → sensör ısınmaya devam ediyor 
-Akım segment 1–2 slope pozitif → yük binmeye başlıyor 
-Basınç segment 3 slope negatif → sistem rahatlıyor 
-> ## 📌 fv[76–79] = segRms[0–3] 
-Segment Enerji / Güç (RMS) 
+- ✔ **Pozitif slope → segmentte yükselen trend** 
+- ✔ **Negatif slope → segmentte düşen trend** 
+- ✔ **0’a yakın → sabit bölüm** 
+- ✔ **Özellikler:** 
+- ✔ **segSlope[0] ≈ 0, segSlope[3] >> 0 → pencere sonunda ani yükseliş** 
+- ✔ **segSlope sıfırdan sıfıra kayıyor → süreç kademeli şekilde düzleşiyor** 
+- ✔ **Segment 1 veya 2’de anomali → proses ortasında bozulma var** 
+- ✔ **Uygulama örnekleri:** 
+- ✔ **Sıcaklık son segment slope > 0 → sensör ısınmaya devam ediyor** 
+- ✔ **Akım segment 1–2 slope pozitif → yük binmeye başlıyor** 
+- ✔ **Basınç segment 3 slope negatif → sistem rahatlıyor** 
+> ## 📌 fv[76–79] = segRms[0–3]  
 ### Tanım: 
-Her segmentte sinyal RMS değeri. 
+> Segment Enerji / Güç (RMS): Her segmentte sinyal RMS değeri. 
 ### 💊 Proses Yorumu:
-RMS, titreşim veya akım gibi sinyallerde enerji/art yükünü temsil eder. 
-RMS yüksek → yük yüksek 
-RMS düşük → stabil, sakin çalışma 
-Özellikle mekanik sistemlerde kritik: 
-segRms[0] < segRms[3] → yük zaman içinde artıyor 
-segRms[2] çok yüksek → orta bölgede aşırı vibrasyon 
-segRms segmentler arası ani sıçrıyorsa → mekanik gevşeme, bearing bozulması 
-Basınç ve sıcaklık için: 
-RMS yükseliyorsa → kontrol zayıf, osilasyon artıyor. 
-> ## 📌 fv[80] = segMeanDelta10 
-Segment1 – Segment0 Ortalama Farkı 
-Anlamı: İlk iki segment arasındaki ortalama değişimi ölçer. 
+- ✔ **RMS, titreşim veya akım gibi sinyallerde enerji/art yükünü temsil eder.** 
+- ✔ **RMS yüksek → yük yüksek** 
+- ✔ **RMS düşük → stabil, sakin çalışma** 
+- ✔ **Özellikle mekanik sistemlerde kritik:** 
+- ✔ **segRms[0] < segRms[3] → yük zaman içinde artıyor** 
+- ✔ **segRms[2] çok yüksek → orta bölgede aşırı vibrasyon** 
+- ✔ **segRms segmentler arası ani sıçrıyorsa → mekanik gevşeme, bearing bozulması** 
+- ✔ **Basınç ve sıcaklık için:** 
+- ✔ **RMS yükseliyorsa → kontrol zayıf, osilasyon artıyor.** 
+> ## 📌 fv[80] = segMeanDelta10
+### Tanım: 
+> Segment1 – Segment0 Ortalama Farkı: İlk iki segment arasındaki ortalama değişimi ölçer. 
 ### 💊 Proses Yorumu:
-Pozitif → süreç ikinci bölümde yükselmeye başlıyor 
-Negatif → düşmeye başlıyor 
-Büyük fark → ani geçiş, ani yük/akım/ısı değişimi 
-> ## 📌 fv[81] = segMeanDelta21 
-Segment2 – Segment1 Ortalama Farkı 
-Anlamı: Orta bölgede trend değişimini gösterir. 
+- ✔ **Pozitif → süreç ikinci bölümde yükselmeye başlıyor** 
+- ✔ **Negatif → düşmeye başlıyor** 
+- ✔ **Büyük fark → ani geçiş, ani yük/akım/ısı değişimi** 
+> ## 📌 fv[81] = segMeanDelta21
+### Tanım:
+> Segment2 – Segment1 Ortalama Farkı: Orta bölgede trend değişimini gösterir. 
 ### 💊 Proses Yorumu:
-Bu değer genelde proses ortasında yaşanan değişimleri anlamak için en kritiklerden biridir. 
-> ## 📌 fv[82] = segMeanDelta32 
-Segment3 – Segment2 Ortalama Farkı 
-Anlamı: Son bölümdeki değişim. 
+- ✔ **Bu değer genelde proses ortasında yaşanan değişimleri anlamak için en kritiklerden biridir.** 
+> ## 📌 fv[82] = segMeanDelta32
+### Tanım:
+> Segment3 – Segment2 Ortalama Farkı: Son bölümdeki değişim. 
 ### 💊 Proses Yorumu:
-Segment3 ortalaması yüksek → pencere sonunda kısa süreli sıçrama 
-Düşük → süreç kapanıyor/gevşiyor 
-Son bölüm anomaly check için çok değerlidir. 
-> ## 📌 fv[83] = segMeanDelta30 
-Segment3 – Segment0 Ortalama Farkı (Uzun Trend) 
-Bu, segmentlerin baştan sona genel drift’ini gösterir. 
+- ✔ **Segment3 ortalaması yüksek → pencere sonunda kısa süreli sıçrama** 
+- ✔ **Düşük → süreç kapanıyor/gevşiyor** 
+- ✔ **Son bölüm anomaly check için çok değerlidir.** 
+> ## 📌 fv[83] = segMeanDelta30
+### Tanım:
+> Segment3 – Segment0 Ortalama Farkı (Uzun Trend): Bu, segmentlerin baştan sona genel drift’ini gösterir. 
 ### 💊 Proses Yorumu:
-Pozitif → uzun vadeli yükselme 
-Negatif → uzun vadeli düşüş 
-Sıfıra yakın → genel olarak stabil 
-Bu değer, trend yönü için tek başına çok kuvvetlidir. 
-> ## 📌 fv[84] = segStdMax 
-Segmentler Arası En Büyük Std 
-Anlamı: En dalgalı segmentin standart sapması. 
+- ✔ **Pozitif → uzun vadeli yükselme** 
+- ✔ **Negatif → uzun vadeli düşüş** 
+- ✔ **Sıfıra yakın → genel olarak stabil** 
+- ✔ **Bu değer, trend yönü için tek başına çok kuvvetlidir.** 
+> ## 📌 fv[84] = segStdMax
+### Tanım: 
+> Segmentler Arası En Büyük Std: En dalgalı segmentin standart sapması. 
 ### 💊 Proses Yorumu:
-Prosesin en problemli yerini söyler: 
-segStdMax yüksek → o bölgede gürültü/titreşim/PID çalkantısı artmış 
-> ## 📌 fv[85] = segStdMin 
-Segmentler Arası En Küçük Std 
-Anlamı: En stabil segment. 
-PLC açısından: 
-Sistem hangi bölümde en stabil çalışıyor → buradan anlaşılır 
-> ## 📌 fv[86] = segStdRange 
-segStdMax − segStdMin 
-Anlamı: Segmentler arasındaki dalgalanma farkı. 
+- ✔ **Prosesin en problemli yerini söyler:** 
+- ✔ **segStdMax yüksek → o bölgede gürültü/titreşim/PID çalkantısı artmış** 
+> ## 📌 fv[85] = segStdMin
+### Tanım: 
+> Segmentler Arası En Küçük Std: En stabil segment. 
+### 💊 Proses Yorumu: 
+- ✔ **Sistem hangi bölümde en stabil çalışıyor → buradan anlaşılır** 
+> ## 📌 fv[86] = segStdRange
+### Tanım:
+> segStdMax − segStdMin: Segmentler arasındaki dalgalanma farkı. 
 ### 💊 Proses Yorumu:
-Büyük fark → proses bazı yerlerde çok kararsız 
-Küçük fark → tüm pencere boyunca benzer stabilite 
-Bu “stabilite uniformity” ölçüsüdür. 
-> ## 📌 fv[87] = largestMeanJump 
-Segmentler Arası En Büyük Ortalama Sıçraması 
-Örnek: 
-max(|mean0-mean1|, |mean1-mean2|, |mean2-mean3|) 
+- ✔ **Büyük fark → proses bazı yerlerde çok kararsız** 
+- ✔ **Küçük fark → tüm pencere boyunca benzer stabilite** 
+- ✔ **Bu “stabilite uniformity” ölçüsüdür.** 
+> ## 📌 fv[87] = largestMeanJump
+### Tanım:
+> Segmentler Arası En Büyük Ortalama Sıçraması 
+> Örnek: 
+> max(|mean0-mean1|, |mean1-mean2|, |mean2-mean3|) 
 ### 💊 Proses Yorumu:
-Süreçteki en büyük ani değişim burada. 
-Bu genelde: 
-Motor yük değişimi 
-Basınç valfi ani açılması 
-PID setpoint step 
-Sıcaklık direnç ani tetiklenmesi 
-gibi olayları yakalar. 
-> ## 📌 fv[88] = segMeanSlope 
-Segment Ortalamalarının Eğimi 
-Segment mean dizisi → [m0, m1, m2, m3] üzerine lineer fit slope. 
+- ✔ **Süreçteki en büyük ani değişim burada.** 
+- ✔ **Motor yük değişimi** 
+- ✔ **Basınç valfi ani açılması** 
+- ✔ **PID setpoint step** 
+- ✔ **Sıcaklık direnç ani tetiklenmesi gibi olayları yakalar.** 
+> ## 📌 fv[88] = segMeanSlope
+### Tanım:
+> Segment Ortalamalarının Eğimi: Segment mean dizisi → [m0, m1, m2, m3] üzerine lineer fit slope. 
 ### 💊 Proses Yorumu:
-Pozitif → segment ortalamaları zamanla artıyor → yükselen trend 
-Negatif → düşen trend 
-Sıfıra yakın → genel olarak yatay/stabil 
-Bu, uzun segment trendinin sade bir temsilidir. 
-> ## 📌 fv[89] = segStdSlope 
-Segment STD’lerinin Eğimi 
-STD dizisi [s0, s1, s2, s3] üzerine lineer fit. 
+- ✔ **Pozitif → segment ortalamaları zamanla artıyor → yükselen trend** 
+- ✔ **Negatif → düşen trend** 
+- ✔ **Sıfıra yakın → genel olarak yatay/stabil** 
+- ✔ **Bu, uzun segment trendinin sade bir temsilidir.** 
+> ## 📌 fv[89] = segStdSlope
+### Tanım:
+> Segment STD’lerinin Eğimi: STD dizisi [s0, s1, s2, s3] üzerine lineer fit. 
 ### 💊 Proses Yorumu:
-Pozitif → her segmentte oynaklık artıyor → sistem bozuluyor 
-Negatif → süreç zamanla toparlıyor 
-0 → stabilite sabit 
-İşlem istikrarını özetleyen çok değerli bir metriktir. 
+- ✔ **Pozitif → her segmentte oynaklık artıyor → sistem bozuluyor** 
+- ✔ **Negatif → süreç zamanla toparlıyor** 
+- ✔ **0 → stabilite sabit** 
+- ✔ **İşlem istikrarını özetleyen çok değerli bir metriktir.** 
 > ## 📌 fv[90] = segMeanVar
 ### Tanım:
 > Segment Ortalamalarının Varyansı: SegMean değerleri arasındaki dağılımın genişliği. 
