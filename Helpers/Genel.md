@@ -372,6 +372,9 @@ public decimal? Decimal(object? s)
 ### TimeSpan dönüşümü
 ```csharp
 public TimeSpan? TimeSpan(object? s)
+```
+Converts strings or numbers into a `TimeSpan?`.  
+Supports multiple formats:
 
 | Format | Meaning | Example |
 |--------|----------|----------|
@@ -381,7 +384,9 @@ public TimeSpan? TimeSpan(object? s)
 | `"00:05:00"` | hh:mm:ss | `H.TimeSpan("00:05:00")` |
 | `2500` | milliseconds | `H.TimeSpan(2500)` |
 
-```
+
+
+
 
 ---
 # 6. Sayısal Yardımcılar
@@ -419,6 +424,12 @@ public double? Abs(double? v)
 
 # 7. String Yardımcılar
 
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.Like(text, pattern)` | Wildcard match: `*` = any, `?` = single char. | `H.Like("Sensor1", "Sensor*")` → `true` |
+| `H.Contains(text, fragment)` | Case-insensitive substring match. | `H.Contains("Hello World", "world")` → `true` |
+
+
 ## Like
 ```csharp
 public bool Like(string? text, string pattern)
@@ -432,6 +443,8 @@ public bool Contains(string? text, string frag)
 ---
 
 # 8. Zaman Fonksiyonları
+
+
 
 ## Now
 ```csharp
@@ -451,6 +464,13 @@ public string Ago(DateTime ts)
 ---
 
 # 9. Bitmask / Flag Fonksiyonları
+
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.IsBitSet(value, bitIndex)` | Checks if a bit is set in an integer. | `H.IsBitSet(5, 0)` → `true` (since 5 = `101b`) |
+| `H.ActiveCount(bool[])` | Counts `true` values in an array. | `H.ActiveCount(true, false, true)` → `2` |
+| `H.AllTrue(bool[])` | Checks if all values are `true`. | `H.AllTrue(true, true)` → `true` |
+| `H.AnyTrue(bool[])` | Checks if any value is `true`. | `H.AnyTrue(false, true)` → `true` |
 
 ## IsBitSet
 ```csharp
