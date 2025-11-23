@@ -583,69 +583,70 @@ Pozitif → her segmentte oynaklık artıyor → sistem bozuluyor
 Negatif → süreç zamanla toparlıyor 
 0 → stabilite sabit 
 İşlem istikrarını özetleyen çok değerli bir metriktir. 
-> ## 📌 fv[90] = segMeanVar 
-Segment Ortalamalarının Varyansı 
-SegMean değerleri arasındaki dağılımın genişliği. 
+> ## 📌 fv[90] = segMeanVar
+### Tanım:
+> Segment Ortalamalarının Varyansı: SegMean değerleri arasındaki dağılımın genişliği. 
 ### 💊 Proses Yorumu:
-Büyük varyans → segment ortalamaları birbirinden çok farklı → uniform değil 
-Küçük varyans → süreç genel olarak düz çizgi gibi 
-Bu, “genel davranış değişkenliği” için iyi bir metriktir. 
-> ## 📌 fv[91] = segStdVar 
-Segment Standart Sapmalarının Varyansı 
-STD’lerin dağılımının genişliğini ölçer. 
+- ✔ **Büyük varyans → segment ortalamaları birbirinden çok farklı → uniform değil** 
+- ✔ **Küçük varyans → süreç genel olarak düz çizgi gibi** 
+- ✔ **Bu, “genel davranış değişkenliği” için iyi bir metriktir.** 
+> ## 📌 fv[91] = segStdVar
+### Tanım: 
+> Segment Standart Sapmalarının Varyansı: STD’lerin dağılımının genişliğini ölçer. 
 ### 💊 Proses Yorumu:
-Büyük varyans → bazı segmentlerde gürültü çok yüksek 
-Küçük varyans → sistem tüm zaman boyunca aynı stabilitede 
-> ## 📌 fv[92] = segSlopeMax 
-Segment Trendlerinin Maksimum Değeri 
-Slope dizisi → [slope0, slope1, slope2, slope3] 
+- ✔ **Büyük varyans → bazı segmentlerde gürültü çok yüksek** 
+- ✔ **Küçük varyans → sistem tüm zaman boyunca aynı stabilitede** 
+> ## 📌 fv[92] = segSlopeMax
+### Tanım:  
+> Segment Trendlerinin Maksimum Değeri: Slope dizisi → [slope0, slope1, slope2, slope3] 
 ### 💊 Proses Yorumu:
-En hızlı yükselişin olduğu segmenti temsil eder. 
-Örneğin segment 3 yükseliyorsa son anlarda ani artış var. 
-> ## 📌 fv[93] = segSlopeMin 
-Segment Trendlerinin Minimumu 
-Bu, en hızlı düşüşün olduğu bölgeyi söyler. 
-Örneğin segment 1’de çok negatif slope → orta bölgede keskin düşüş. 
-> ## 📌 fv[94] = segSlopeRange 
-segSlopeMax − segSlopeMin 
-Anlamı: Segment eğimleri arasındaki dağılım. 
+- ✔ **En hızlı yükselişin olduğu segmenti temsil eder.** 
+- ✔ **Örneğin segment 3 yükseliyorsa son anlarda ani artış var.** 
+> ## 📌 fv[93] = segSlopeMin
+### Tanım: 
+> Segment Trendlerinin Minimumu 
+- ✔ **Bu, en hızlı düşüşün olduğu bölgeyi söyler.** 
+- ✔ **Örneğin segment 1’de çok negatif slope → orta bölgede keskin düşüş.** 
+> ## 📌 fv[94] = segSlopeRange
+### Tanım: 
+> segSlopeMax − segSlopeMin: Segment eğimleri arasındaki dağılım. 
 ### 💊 Proses Yorumu:
-Büyük fark → bazı segmentlerde yükseliş, bazılarında düşüş → süreç uniform değil 
-Küçük fark → trend her yerde benzer → stabil sistem 
-> ## 📌 fv[95] = segSlopeRms 
-Segment Eğimi RMS (Trend Gücü) 
-Slope değerlerinin enerji/şiddet ölçüsü. 
+- ✔ **Büyük fark → bazı segmentlerde yükseliş, bazılarında düşüş → süreç uniform değil** 
+- ✔ **Küçük fark → trend her yerde benzer → stabil sistem** 
+> ## 📌 fv[95] = segSlopeRms
+### Tanım:
+> Segment Eğimi RMS (Trend Gücü): Slope değerlerinin enerji/şiddet ölçüsü. 
 ### 💊 Proses Yorumu:
-Yüksek → segmentler genel olarak güçlü trend içeriyor (ani artış/azalış) 
-Düşük → zaman boyunca trend zayıf, sistem sabit 
-Titreşim veya akım sistemlerinde “trend gücü” için çok anlamlıdır. 
-> ## 📌 fv[96] = totalEnergy 
-Frekans Spektrumunun Toplam Enerjisi 
-Anlamı: FFT binlerinin enerji toplamı. 
+- ✔ **Yüksek → segmentler genel olarak güçlü trend içeriyor (ani artış/azalış)** 
+- ✔ **Düşük → zaman boyunca trend zayıf, sistem sabit** 
+- ✔ **Titreşim veya akım sistemlerinde “trend gücü” için çok anlamlıdır.** 
+> ## 📌 fv[96] = totalEnergy
+### Tanım:
+> Frekans Spektrumunun Toplam Enerjisi: FFT binlerinin enerji toplamı. 
 ### 💊 Proses Yorumu:
-Yüksek → sistemde yüksek titreşim, osilasyon, gürültü 
-Düşük → stabil ve sakin çalışma 
-Ani artış → mekanik gevşeme, rulman bozulması, PID kararsızlığı 
-> ## 📌 fv[97] = centroid 
-Spektral Kütle Merkezi (Spectral Centroid) 
-Anlamı: Enerjinin frekans ekseninde ağırlık merkezi. 
+- ✔ **Yüksek → sistemde yüksek titreşim, osilasyon, gürültü** 
+- ✔ **Düşük → stabil ve sakin çalışma** 
+- ✔ **Ani artış → mekanik gevşeme, rulman bozulması, PID kararsızlığı** 
+> ## 📌 fv[97] = centroid
+### Tanım:
+> Spektral Kütle Merkezi (Spectral Centroid): Enerjinin frekans ekseninde ağırlık merkezi. 
 ### 💊 Proses Yorumu:
-Düşük centroid → enerji düşük frekanslarda 
-Yüksek centroid → sistem yüksek frekans bileşenlerine kayıyor (titreşim artışı, mekanik sürtünme) 
-Bu metrik, “ses parlaklığı” gibi düşünülebilir ama mekanik sinyallerde titreşim dağılımını gösterir. 
+- ✔ **Düşük centroid → enerji düşük frekanslarda** 
+- ✔ **Yüksek centroid → sistem yüksek frekans bileşenlerine kayıyor (titreşim artışı, mekanik sürtünme)** 
+- ✔ **Bu metrik, “ses parlaklığı” gibi düşünülebilir ama mekanik sinyallerde titreşim dağılımını gösterir** 
 > ## 📌 fv[98] = spread 
-Spektral Yayılım 
-Anlamı: Enerji ne kadar geniş bir frekans aralığına dağılmış. 
+### Tanım:
+> Spektral Yayılım: Enerji ne kadar geniş bir frekans aralığına dağılmış. 
 ### 💊 Proses Yorumu:
-Yüksek → sinyal geniş bantlı (gürültü artmış) 
-Düşük → sinyal dar bantlı (motor nominal çalışıyor) 
-Arıza oluştuğunda spread genelde artar. 
-> ## 📌 fv[99] = flatness 
-Spektral Düzlük (Spectral Flatness) 
-(Sinyalin gürültü mü, ton mu olduğunu ölçer) 
+- ✔ **Yüksek → sinyal geniş bantlı (gürültü artmış)** 
+- ✔ **Düşük → sinyal dar bantlı (motor nominal çalışıyor)** 
+- ✔ **Arıza oluştuğunda spread genelde artar** 
+> ## 📌 fv[99] = flatness
+### Tanım:
+> Spektral Düzlük (Spectral Flatness): (Sinyalin gürültü mü, ton mu olduğunu ölçer) 
 ### 💊 Proses Yorumu:
-1’e yakın → beyaz gürültü gibi; ton yok → mekanik bozukluk, sürtünme, dağınık titreşim 
-0’a yakın → belirgin tonlar → fan, motor, rulman karakteristik frekansları 
+- ✔ **1’e yakın → beyaz gürültü gibi; ton yok → mekanik bozukluk, sürtünme, dağınık titreşim** 
+- ✔ **0’a yakın → belirgin tonlar → fan, motor, rulman karakteristik frekansları** 
 > ## 📌 fv[100] = crest
 ### Tanım: 
 > Crest Factor (Peak / RMS) 
