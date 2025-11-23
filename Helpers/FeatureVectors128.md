@@ -662,10 +662,10 @@ Spektral Düzlük (Spectral Flatness)
 - ✔ **1–3: düşük/orta titreşim** 
 - ✔ **4–7: yüksek frekans, harmonikler, rulman hasar frekansları** 
 ### 💊 Proses Yorumu:
-Düşük bantlar ↑ → yük salınımı, PID osilasyonu 
-Orta bantlar ↑ → rezonans, mekanik dengesizlik 
-Yüksek bantlar ↑ → rulman iç/orta/dış bilezik hasarı, sürtünme, gövde rezonansı 
-Bu dağılım bir çeşit “frekans fingerprint” oluşturur. 
+- ✔ **Düşük bantlar ↑ → yük salınımı, PID osilasyonu** 
+- ✔ **Orta bantlar ↑ → rezonans, mekanik dengesizlik** 
+- ✔ **Yüksek bantlar ↑ → rulman iç/orta/dış bilezik hasarı, sürtünme, gövde rezonansı** 
+- ✔ **Bu dağılım bir çeşit “frekans fingerprint” oluşturur.** 
 > ## 📌 fv[109] = domFreq 
 ### Tanım:
 > Baskın Frekans (Dominant Frequency): Sinyalde en yüksek enerjiyi taşıyan frekans. 
