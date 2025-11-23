@@ -1,6 +1,4 @@
 # FEATURE VECTORS 128
-using MathNet.Numerics.LinearAlgebra.Factorization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 ___
 > ## 📌 fv[0] — mean (Ortalama) 
 ### Tanım: 
