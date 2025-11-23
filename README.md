@@ -221,7 +221,8 @@ Bu yapı, hem mekanik (titreşim), hem proses (sıcaklık PV, seviye, debi), hem
 
 <img width="860" height="575" alt="image" src="https://github.com/user-attachments/assets/074e1c04-5933-4411-84dc-8ba6601e38e7" />
 
-<img width="860" height="575" alt="image" src="https://github.com/user-attachments/assets/dc5e58bf-612a-41fc-a151-e2e169815c00" />
+<img width="860" height="575" alt="image" src="https://github.com/user-attachments/assets/eb05d7e6-1dce-4378-af8b-9a38f091672d" />
+
 
 
 
