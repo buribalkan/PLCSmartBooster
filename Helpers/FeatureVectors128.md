@@ -786,36 +786,38 @@ Artık = (sinyal – emaSlow)
 
 > ## 📌 fv[55] — resFastRms (Fast EMA Artık RMS) 
 
-### Tanım: Hızlı trend sapmalarının enerjisi. 
+### Tanım: 
+
+> Hızlı trend sapmalarının enerjisi. 
 
 ### 💊 Proses Yorumu:
 
-Yüksek frekanslı gürültü, harmonik, jitter tespitinde etkili. 
+- ✔ **Yüksek frekanslı gürültü, harmonik, jitter tespitinde etkili.** 
 
-Vibrasyon analitiğinde ince sinyali yakalar. 
+- ✔ **Vibrasyon analitiğinde ince sinyali yakalar.** 
 
-PID kaynaklı küçük hızlı dalgalanmalar burada görünür. 
+- ✔ **PID kaynaklı küçük hızlı dalgalanmalar burada görünür.** 
 
  
 
 > ## 📌 fv[56] — slowSpikeCount (Slow EMA’ya Göre Spike Sayısı) 
-
-Spike = |resSlow| > threshold 
+### Tanım: 
+> Spike = |resSlow| > threshold 
 
 ### 💊 Proses Yorumu:
 
-Uzun vadeli beklentiye göre anormal yükselmeler/düşüşler 
+- ✔ **Uzun vadeli beklentiye göre anormal yükselmeler/düşüşler 
 
-Proses anlık şoklara maruz kalıyor olabilir: 
+- ✔ **Proses anlık şoklara maruz kalıyor olabilir: 
  
 
-tork darbesi 
+- ✔ **tork darbesi 
 
-basınç reseti 
+- ✔ **basınç reseti 
 
-akım sıçraması 
+- ✔ **akım sıçraması 
 
-ani ısı değişimi 
+- ✔ **ani ısı değişimi 
 
  
 
@@ -835,13 +837,13 @@ ani ısı değişimi
 
 ### 💊 Proses Yorumu:
 
-Yüksek frekanslı anomali tespiti 
+- ✔ **Yüksek frekanslı anomali tespiti 
 
-Vibrasyon pikleri 
+- ✔ **Vibrasyon pikleri 
 
-Sensör jitter 
+- ✔ **Sensör jitter 
 
-Gürültü altında çalışan sistemlerde hızlı spike sayısı kritik. 
+- ✔ **Gürültü altında çalışan sistemlerde hızlı spike sayısı kritik. 
 
  
 
@@ -853,9 +855,9 @@ Gürültü altında çalışan sistemlerde hızlı spike sayısı kritik.
 
  
 
-Makinenin genel stabilite ölçüsü 
+- ✔ **Makinenin genel stabilite ölçüsü 
 
-Sürekli slow spike oluşması → proses çok dalgalı veya mekanik parça gevşek. 
+- ✔ **Sürekli slow spike oluşması → proses çok dalgalı veya mekanik parça gevşek. 
 
  
 
@@ -865,16 +867,16 @@ Sürekli slow spike oluşması → proses çok dalgalı veya mekanik parça gev�
 
 ### 💊 Proses Yorumu:
 
-Yüksek fastSpikeRate → 
+- ✔ **Yüksek fastSpikeRate → 
  
 
-vibrasyon artışı 
+- ✔ **vibrasyon artışı 
 
-sensör gürültüsü 
+- ✔ **sensör gürültüsü 
 
-PID high-frequency osilasyon 
+- ✔ **PID high-frequency osilasyon 
 
-bearing/dişli bozulmalarına işaret edebilir. 
+- ✔ **bearing/dişli bozulmalarına işaret edebilir. 
 
  
 
@@ -892,11 +894,11 @@ bearing/dişli bozulmalarına işaret edebilir.
 
 ### 💊 Proses Yorumu:
 
-Anlık değer. 
+- ✔ **Anlık değer. 
 
-Trend karşılaştırmalarında referans alınır. 
+- ✔ **Trend karşılaştırmalarında referans alınır. 
 
-Model son anda sinyalin nereye geldiğini bilmezse yorum hatalı olabilir. Bu yüzden çok önemli. 
+- ✔ **Model son anda sinyalin nereye geldiğini bilmezse yorum hatalı olabilir. Bu yüzden çok önemli. 
 
  
 
@@ -904,9 +906,9 @@ Model son anda sinyalin nereye geldiğini bilmezse yorum hatalı olabilir. Bu y�
 
 ### 💊 Proses Yorumu:
 
-Pencere başındaki sistem durumunu gösterir. 
+- ✔ **Pencere başındaki sistem durumunu gösterir. 
 
-last - first ile bölgedeki değişimin net yönü alınır. 
+- ✔ **last - first ile bölgedeki değişimin net yönü alınır. 
 
  
 
@@ -916,11 +918,11 @@ last - first ile bölgedeki değişimin net yönü alınır.
 
 ### 💊 Proses Yorumu:
 
-Pozitif → süreç yükselmiş 
+- ✔ **Pozitif → süreç yükselmiş 
 
-Negatif → süreç azalmış 
+- ✔ **Negatif → süreç azalmış 
 
-Sıcaklık/akım/başınç drift tespitinde çok kritik. 
+- ✔ **Sıcaklık/akım/başınç drift tespitinde çok kritik. 
 
  
 
@@ -938,13 +940,13 @@ Sıcaklık/akım/başınç drift tespitinde çok kritik.
 
 ### 💊 Proses Yorumu:
 
-Eğer emaSlow > mean → sinyal yukarı doğru ivmeleniyor. 
+- ✔ **Eğer emaSlow > mean → sinyal yukarı doğru ivmeleniyor. 
 
-emaSlow < mean → sinyal aşağı yönlü. 
+- ✔ **emaSlow < mean → sinyal aşağı yönlü. 
 
-“EMA → adaptif ortalama” ile “mean → statik ortalama” farkı makinenin trend hızını gösterir. 
+- ✔ **“EMA → adaptif ortalama” ile “mean → statik ortalama” farkı makinenin trend hızını gösterir. 
 
-Segment Yapısı 
+- ✔ **Segment Yapısı 
 
 n örneklik pencere şu şekilde 4’e bölünüyor: 
 
@@ -1963,11 +1965,11 @@ Sinyal Gürültü Oranı (Signal-to-Noise Ratio)
 
 ### 💊 Proses Yorumu:
 
-Yüksek → sistem net, stabil 
+- ✔ **Yüksek → sistem net, stabil** 
 
-Düşük → gürültü artmış, sistem bozuluyor 
+- ✔ **Düşük → gürültü artmış, sistem bozuluyor** 
 
-Motor ve fan gibi sistemlerde SNR düşüşü erken uyarıdır. 
+- ✔ **Motor ve fan gibi sistemlerde SNR düşüşü erken uyarıdır.** 
 
 > ## 📌 fv[119] = dcComponent 
 
@@ -1977,13 +1979,13 @@ Sinyalin ortalama kayması.
 
 ### 💊 Proses Yorumu:
 
-Setpoint drift 
+- ✔ **Setpoint drift** 
 
-PID bias 
+- ✔ **PID bias** 
 
-Basınç/sıcaklık offset kayması 
+- ✔ **Basınç/sıcaklık offset kayması** 
 
-DC kayması çoğunlukla kalibrasyon veya mekanik sürtünmenin erken işaretidir. 
+- ✔ **DC kayması çoğunlukla kalibrasyon veya mekanik sürtünmenin erken işaretidir.** 
 
 > ## 📌 fv[120] = acEnergyRatio 
 
@@ -1993,10 +1995,10 @@ Yani salınım miktarı.
 
 ### 💊 Proses Yorumu:
 
-Yüksek → sistemde osilasyon baskın 
+- ✔ **Yüksek → sistemde osilasyon baskın** 
 
-Düşük → sistem daha stabil, az titreşimli 
+- ✔ **Düşük → sistem daha stabil, az titreşimli** 
 
-Bu değer PID tuning analizinde özellikle faydalıdır. 
+- ✔ **Bu değer PID tuning analizinde özellikle faydalıdır.** 
 
  
