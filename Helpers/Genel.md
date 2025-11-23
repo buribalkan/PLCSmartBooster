@@ -444,6 +444,11 @@ public bool Contains(string? text, string frag)
 
 # 8. Zaman Fonksiyonları
 
+| Function | Description | Example |
+|-----------|--------------|----------|
+| `H.Now()` | Returns the current UTC time. | `H.Now()` |
+| `H.SecondsSince(date)` | Seconds since a given timestamp. | `H.SecondsSince(H.Now().AddSeconds(-5))` → `5` |
+| `H.Ago(date)` | Human-readable elapsed time string. | `H.Ago(DateTime.UtcNow.AddSeconds(-12))` → `"12.0s ago"` |
 
 
 ## Now
