@@ -1960,8 +1960,8 @@ FFT’de taban gürültü seviyesi.
 Artması → yatak aşınması, sürtünme, sensör bozulması 
 
 > ## 📌 fv[118] = snr 
-
-Sinyal Gürültü Oranı (Signal-to-Noise Ratio) 
+### Tanım:
+> Sinyal Gürültü Oranı (Signal-to-Noise Ratio) 
 
 ### 💊 Proses Yorumu:
 
@@ -1972,10 +1972,8 @@ Sinyal Gürültü Oranı (Signal-to-Noise Ratio)
 - ✔ **Motor ve fan gibi sistemlerde SNR düşüşü erken uyarıdır.** 
 
 > ## 📌 fv[119] = dcComponent 
-
-DC Bileşeni (Offset) 
-
-Sinyalin ortalama kayması. 
+### Tanım:
+> DC Bileşeni (Offset): Sinyalin ortalama kayması. 
 
 ### 💊 Proses Yorumu:
 
@@ -1988,10 +1986,8 @@ Sinyalin ortalama kayması.
 - ✔ **DC kayması çoğunlukla kalibrasyon veya mekanik sürtünmenin erken işaretidir.** 
 
 > ## 📌 fv[120] = acEnergyRatio 
-
-AC Enerjisi / Toplam Enerji 
-
-Yani salınım miktarı. 
+### Tanım:
+> AC Enerjisi / Toplam Enerji: Salınım miktarı. 
 
 ### 💊 Proses Yorumu:
 
