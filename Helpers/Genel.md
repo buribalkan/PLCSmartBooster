@@ -64,6 +64,51 @@ string tag = "GVL_Var.fTempActual";
 int n = 30;
 var xsRaw = H.LastN(tag, n);
 ```
+> lastN kullanarak son 10 değerin ortalamasını bulmak. 10 değere ulaşıldığında sürekli olarak son 10 değerin ortalamasını almaya devem eder.
+```csharp
+using System.Globalization;
+int n = 10;
+var raw = H.LastN("MAIN_Simu.fBoxX[1]", n);
+H.Console(string.Join(", ",
+    raw.Select(x =>
+    {
+        var d = H.Double(x);
+        return d.HasValue 
+            ? d.Value.ToString("F2", CultureInfo.InvariantCulture) 
+            : "null";
+    })
+));
+// 10 değer biriktiğinden emin olmak için.
+// Aksi takdirde ilk değerler geldiğinde ortalama almaya başlar.
+// 10 lu pencere mantığına uygun olmaz.
+if (raw == null || raw.Length < n)
+{
+    H.Print($"Need {n} samples, have {(raw==null ? 0 : raw.Length)}");
+    return false;
+}
+var arr = H.LastN("MAIN_Simu.fBoxX[1]", 10)
+           .Select(H.Double)
+           .Where(v => v.HasValue)
+           .Select(v => v.Value)
+           .ToArray();
+
+double avg = arr.Average();
+H.Console($"{avg:F2}");
+```
+> ### 🖥️ Konsol Çıktısı
+> ```
+> 06:22:38.575  Info  100,40
+> 06:22:38.573  Info  95.60, 96.80, 98.00, 98.80, 100.00, 100.80, 102.00, 102.80, 104.00, 105.20
+> 06:22:33.545  Info  -64,24
+> 06:22:33.544  Info  -69.20, -68.00, -67.20, -66.00, -64.80, -63.60, -62.80, -61.60, -60.00, -59.20
+> 06:22:25.846  Info  -123,68
+> 06:22:25.845  Info  -128.80, -127.60, -126.40, -125.60, -124.40, -123.20, -122.00, -120.40, -119.60, -118.80
+> 06:22:19.101  Info  -145,72
+> 06:22:19.090  Info  -150.80, -149.60, -148.80, -147.60, -146.40, -145.20, -144.00, -142.80, -141.60, -140.40
+> 06:22:14.087  Info  Need 10 samples, have 1
+> 06:22:14.087  Info  -180.00
+> ```
+
 
 ### 📌 LastDouble(tag)
 ```csharp
@@ -147,7 +192,7 @@ double std = Math.Sqrt(sumSq / values.Length);
 
 ---
 
-# 2. Durum ve Sebep Fonksiyonları
+# 2. Log işlemleri için Durum ve Sebep Fonksiyonları
 
 > Reason, Hit ve Fail fonksiyonları; script içinde belirlenen kuralların, koşulların veya tetikleyicilerin neden gerçekleştiğini kullanıcıya bildirmek amacıyla tasarlanmış temel log fonksiyonlarıdır. Tanımlanan kuralların (sıcaklık 30 dereceyi geçiyor mu? Geçerse bildir) gerçekleşme durumunda kullanıcıya log oluşturarak bilgi verilmesi sağlanır. Üç fonksiyonda benzer şekilde kullanılır. H.Hit, Rule Hit (Tanımlanan durum gerçekleşti) mantığına uygun olduğu için kullanılması önerilen fonksiyondur.
 
