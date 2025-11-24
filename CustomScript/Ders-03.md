@@ -1,3 +1,59 @@
+
+
+⚠️ DİKKAT
+❗ ÖNEMLİ
+🚨 UYARI
+🔥 KRİTİK
+
+Ayrıca alternatif olarak:
+
+⚡
+
+🛑
+
+⛔
+
+🔔
+
+📢
+
+❕
+
+❗❗
+
+⚠️⚠️
+
+Markdown başlıklarıyla kullanmak istersen:
+
+## ⚠️ Dikkat
+
+### 🚨 Kritik Uyarı
+
+> ❗ Önemli Not
+
+
+“İlaç / hap / capsule” ikonları için en yaygın kullanılan emojiler şunlardır:
+
+💊
+
+(hap / capsule)
+
+Alternatifler:
+
+🧪 (deney tüpü – laboratuvar bağlamında)
+
+🩺 (tıbbi bağlam)
+
+🆘 (acil durum)
+
+🚑 (ambulans)
+
+En doğrudan “hap” anlamına gelen emoji:
+
+👉 💊
+
+
+
 Mademki kural penceresindeyiz, Custom Script ile kod yazmaya başladık ve 
 değerleri dönüştürmeyi öğrendik, o zaman ilk kuralımızı yazalım.
 
