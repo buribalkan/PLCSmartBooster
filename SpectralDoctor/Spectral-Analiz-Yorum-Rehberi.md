@@ -2,7 +2,7 @@
 
 > PLC proses verisi için mühendislik odaklı yorumlama kılavuzu
 
-### 1. ANALİTİK ZİHİN HARİTASI
+### ANALİTİK ZİHİN HARİTASI
 
 Her analog sinyal için analiz mantığı aslında 4 büyük sorudan oluşur:
 
@@ -14,6 +14,7 @@ Her analog sinyal için analiz mantığı aslında 4 büyük sorudan oluşur:
 Bütün metrikler aslında bu 4 sorunun alt cevaplarını oluşturur.
 
 > 1. TOTAL ENERGY
+
     
 | **Ne Gösterir** | **Nasıl Yorumlanır** | **Yorum** |
 |-----------------|----------------------|-----------|
