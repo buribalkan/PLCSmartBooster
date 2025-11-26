@@ -7,8 +7,8 @@
 # Genel Bilgi
 **MlHelper**, script kurallarında kullanılmak üzere çeşitli makine öğrenmesi işlemlerini kolaylaştırır:
 
-- Hafif veri önişleme
-- Basit model‑siz analizler (regresyon, z‑score, IQR, EWMA)
+- Veri önişleme
+- Modelsiz analizler (regresyon, z‑score, IQR, EWMA)
 - ONNX model çalıştırma
 - ML.NET içinde PCA tabanlı anomaly modelleri eğitme
 - 64 boyutlu gelişmiş özellik çıkarıcı
@@ -19,6 +19,26 @@ var fv = H.ML.FeatureVectorFromLastN("Temp", 50);
 ```
 
 ---
+
+| Fonksiyon Adı                    | Amaç / Açıklama |
+|----------------------------------|------------------|
+| **H.ML.FeatureVectorFromLastN**       | Son N değerden *basit* 1D feature vektörü üretir (float[]). |
+| **H.ML.LinearRegression**             | Son N değerin lineer regresyon eğimini (slope) ve kesişimini (intercept) hesaplar. |
+| **H.ML.KMeans1D**                     | Tek boyutlu K-Means kümeleme (trend/özellik segmentasyonu için). |
+| **H.ML.AnomalyZScore**                | Z-Score bazlı, model gerektirmeyen anomaly tespiti. |
+| **H.ML.AnomalyIqr**                   | IQR (Interquartile Range) bazlı outlier/ anomaly tespiti. |
+| **H.ML.EwmaChangeScore**              | EWMA (Exponential Weighted Moving Average) değişim skoru üretir — ani değişimleri yakalar. |
+| **H.ML.OnnxPredict**                  | Float[] feature’ı ONNX modelde çalıştırır. |
+| **H.ML.OnnxPredictFromFeature64**     | 64D feature çıkarır ve ONNX modeline verir (zengin zaman serisi tahmini). |
+| **H.ML.OnnxIsolationForestAnomaly**   | ONNX isolation forest modelinden anomaly kararı üretir. |
+| **H.ML.OnnxOneClassSvmAnomaly**       | ONNX One-Class SVM modelinden anomaly sonucu döndürür. |
+| **H.ML.TrainRandomizedPcaFromTag**    | ML.NET Randomized PCA ile anomaly modeli *eğitir*. |
+| **H.ML.ScoreRandomizedPca**           | PCA modelini yeni değerlerle skorlar (rekonstrüksiyon hatası). |
+| **H.ML.IidSpike**                     | ML.NET IID Spike tespiti — ani sıçrama/yükselme algılar. |
+| **H.ML.IidChangePoint**               | ML.NET IID Change Point — davranış değişimi tespit eder. |
+| **H.ML.FeatureVector64FromLastN**     | Son N değer için *zengin 64 boyutlu zaman serisi özelliği* çıkarır (trend, türev, EWMA, RMS vs). |
+| **H.ML.LogFeatureVector64FromLastN**  | 64D feature vektörünü CSV/Log file’a yazar (Python analizleri için ideal). |
+
 
 # Feature Helpers
 
