@@ -1,4 +1,4 @@
-Buradaki bilgiler benim özel notlarımdır. Kimseye tavsiye niteliğinde değildir. Kimseye de hitap etmemektedir
+Buradaki ve tüm klasörlerdeki bilgiler benim özel notlarımdır. Kimseye tavsiye niteliğinde değildir. Kimseye de hitap etmemektedir
 
 # PLCSmartBooster
 
