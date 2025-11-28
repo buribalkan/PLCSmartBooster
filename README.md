@@ -1,3 +1,5 @@
+Buradaki bilgiler benim özel notlarımdır. Kimseye tavsiye niteliğinde değildir. Kimseye de hitap etmemektedir
+
 # PLCSmartBooster
 
 > Endüstriyel proseslerde gerçek zamanlı veri analizi, trend modelleme, feature extraction, anomali / instability indeksleme, erken uyarı, ve akıllı öneri üretimi sağlayan; tamamen read-only, güvenli ve script-tabanlı bir analiz motoru.
